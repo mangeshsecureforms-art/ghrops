@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Feedback</title>
+
+<style>
+:root {
+    --ink: #1b2430;
+    --muted: #5b6774;
+    --line: #e2e6eb;
+    --accent: #2f5fdb;
+    --accent-ink: #ffffff;
+    --reject: #b3261e;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    padding: 24px;
+}
+
+.card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 32px 28px;
+    box-shadow: 0 1px 3px rgba(20, 30, 45, 0.06);
+}
+
+.eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0 0 8px;
+}
+
+.meta {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 24px;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    color: var(--ink);
+}
+
+textarea:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+button {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#shortlistBtn {
+    background: var(--accent);
+    color: var(--accent-ink);
+}
+
+#rejectBtn {
+    background: #fff;
+    color: var(--reject);
+    border: 1px solid var(--reject);
+}
+
+#formError {
+    display: none;
+    color: var(--reject);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+}
+
+.state {
+    display: none;
+}
+
+.state.active {
+    display: block;
+}
+
+.center {
+    text-align: center;
+}
+
+#loadingState p,
+#expiredState p,
+#resultState p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <!-- Loading -->
+    <div id="loadingState" class="state active center">
+        <div class="icon">⏳</div>
+        <h1>Loading feedback form...</h1>
+        <p>Please wait.</p>
+    </div>
+
+    <!-- Expired -->
+    <div id="expiredState" class="state center">
+        <div class="icon">⚠️</div>
+
+        <h1>This link is no longer active</h1>
+
+        <p>
+            Feedback for this interview has already been recorded,
+            or this link is invalid or expired.
+        </p>
+    </div>
+
+    <!-- Feedback Form -->
+    <div id="formState" class="state">
+
+        <p class="eyebrow">Interview Feedback</p>
+
+        <h1 id="candidateName">Candidate</h1>
+
+        <p class="meta" id="candidateMeta">
+            Loading interview details...
+        </p>
+
+        <label for="feedbackMessage">
+            Interview Feedback
+        </label>
+
+        <textarea
+            id="feedbackMessage"
+            placeholder="Enter your feedback, strengths, concerns, technical assessment..."
+        ></textarea>
+
+        <div id="formError">
+            Please enter feedback before submitting.
+        </div>
+
+        <div class="actions">
+
+            <button
+                id="rejectBtn"
+                type="button">
+                Reject
+            </button>
+
+            <button
+                id="shortlistBtn"
+                type="button">
+                Shortlist
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Result -->
+    <div id="resultState" class="state center">
+
+        <div class="icon">✓</div>
+
+        <h1>Feedback Recorded</h1>
+
+        <p id="resultMessage">
+            Your feedback has been saved successfully.
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   POWER AUTOMATE FLOW URLs
+   ========================================================= */
+
+var STATUS_FLOW_URL =
+"https://2ee217396b6fe0ffb476c1e33c828f.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/03/workflows/07fd6efa826c4d448c9a6a819c97ebde/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=EeBJE4BSySpncsioNcMQzFhKkRU2SXZqvTBGDs-5sz4";
+
+var UPDATE_FLOW_URL =
+"https://YOUR-FLOW-2-URL";
+
+
+/* =========================================================
+   GET INTERVIEW TOKEN FROM URL
+   Example:
+   interview-feedback.html?id=53e7de23-968d-4790-b0f4-2fe2f6b70d83
+   ========================================================= */
+
+var params = new URLSearchParams(
+    window.location.search
+);
+
+var interviewId =
+    params.get("id");
+
+
+/* =========================================================
+   PAGE STATES
+   ========================================================= */
+
+var states = {
+
+    loading:
+        document.getElementById("loadingState"),
+
+    expired:
+        document.getElementById("expiredState"),
+
+    form:
+        document.getElementById("formState"),
+
+    result:
+        document.getElementById("resultState")
+};
+
+
+function showState(name) {
+
+    Object.keys(states).forEach(function(key) {
+
+        states[key].classList.toggle(
+            "active",
+            key === name
+        );
+
+    });
+
+}
+
+
+/* =========================================================
+   FLOW 1
+   CHECK INTERVIEW STATUS
+   ========================================================= */
+
+function loadStatus() {
+
+    if (!interviewId) {
+
+        showState("expired");
+
+        return;
+    }
+
+
+    /*
+       IMPORTANT:
+
+       Power Automate URL already contains ?
+
+       Therefore we use &id=
+       NOT ?id=
+    */
+
+    var requestUrl =
+        STATUS_FLOW_URL +
+        "&id=" +
+        encodeURIComponent(interviewId);
+
+
+    fetch(requestUrl, {
+
+        method: "GET",
+
+        headers: {
+            "Accept": "application/json"
+        }
+
+    })
+
+    .then(function(response) {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Status flow failed: " +
+                response.status
+            );
+
+        }
+
+        return response.json();
+
+    })
+
+    .then(function(data) {
+
+        console.log(
+            "Flow 1 response:",
+            data
+        );
+
+
+        if (
+            data &&
+            data.interviewStatus === "Pending"
+        ) {
+
+            document
+                .getElementById("candidateName")
+                .textContent =
+                    data.candidateName ||
+                    "Candidate";
+
+
+            document
+                .getElementById("candidateMeta")
+                .textContent =
+                    (data.position || "") +
+                    " · Interview ID " +
+                    interviewId;
+
+
+            showState("form");
+
+        }
+
+        else {
+
+            showState("expired");
+
+        }
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Flow 1 error:",
+            error
+        );
+
+        showState("expired");
+
+    });
+
+}
+
+
+/* =========================================================
+   FLOW 2
+   SUBMIT INTERVIEW FEEDBACK
+   ========================================================= */
+
+function submitFeedback(action) {
+
+    var textarea =
+        document.getElementById(
+            "feedbackMessage"
+        );
+
+    var errorEl =
+        document.getElementById(
+            "formError"
+        );
+
+
+    var message =
+        textarea.value.trim();
+
+
+    if (!message) {
+
+        errorEl.textContent =
+            "Please enter feedback before submitting.";
+
+        errorEl.style.display =
+            "block";
+
+        textarea.focus();
+
+        return;
+    }
+
+
+    errorEl.style.display =
+        "none";
+
+
+    var shortlistBtn =
+        document.getElementById(
+            "shortlistBtn"
+        );
+
+    var rejectBtn =
+        document.getElementById(
+            "rejectBtn"
+        );
+
+
+    shortlistBtn.disabled = true;
+
+    rejectBtn.disabled = true;
+
+
+    /*
+       Data sent to Flow 2
+    */
+
+    var requestData = {
+
+        id: interviewId,
+
+        feedbackMessage: message,
+
+        action: action
+
+    };
+
+
+    console.log(
+        "Sending to Flow 2:",
+        requestData
+    );
+
+
+    fetch(
+        UPDATE_FLOW_URL,
+        {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type":
+                    "application/json",
+
+                "Accept":
+                    "application/json"
+
+            },
+
+            body:
+                JSON.stringify(
+                    requestData
+                )
+
+        }
+    )
+
+    .then(function(response) {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Update flow failed: " +
+                response.status
+            );
+
+        }
+
+        return response.json();
+
+    })
+
+    .then(function(data) {
+
+        console.log(
+            "Flow 2 response:",
+            data
+        );
+
+
+        document
+            .getElementById("resultMessage")
+            .textContent =
+                (
+                    data &&
+                    data.message
+                ) ||
+                "Your feedback has been saved successfully.";
+
+
+        showState("result");
+
+    })
+
+    .catch(function(error) {
+
+        console.error(
+            "Flow 2 error:",
+            error
+        );
+
+
+        errorEl.textContent =
+            "Unable to submit your feedback. Please try again.";
+
+        errorEl.style.display =
+            "block";
+
+
+        shortlistBtn.disabled =
+            false;
+
+        rejectBtn.disabled =
+            false;
+
+    });
+
+}
+
+
+/* =========================================================
+   BUTTON EVENTS
+   ========================================================= */
+
+document
+    .getElementById("shortlistBtn")
+    .addEventListener(
+        "click",
+        function() {
+
+            submitFeedback(
+                "shortlist"
+            );
+
+        }
+    );
+
+
+document
+    .getElementById("rejectBtn")
+    .addEventListener(
+        "click",
+        function() {
+
+            submitFeedback(
+                "reject"
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+loadStatus();
+
+</script>
+
+</body>
+</html>
