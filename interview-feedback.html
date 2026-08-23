@@ -246,7 +246,7 @@ var STATUS_FLOW_URL =
 "https://2ee217396b6fe0ffb476c1e33c828f.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/03/workflows/07fd6efa826c4d448c9a6a819c97ebde/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=EeBJE4BSySpncsioNcMQzFhKkRU2SXZqvTBGDs-5sz4";
 
 var UPDATE_FLOW_URL =
-"https://YOUR-FLOW-2-URL";
+"https://2ee217396b6fe0ffb476c1e33c828f.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/15/workflows/2fb559a969d64e2ab663740d1705eed2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3mDp9Lrqd3V3f-RZ3PO10YT-6OQSYHOQyO6irIeCZ0I";
 
 
 /* =========================================================
@@ -298,8 +298,8 @@ function showState(name) {
 
 
 /* =========================================================
-   FLOW 1
-   CHECK INTERVIEW STATUS
+   FLOW 1 (FIXED)
+   CHECK INTERVIEW STATUS - POST Request matching JSON schema
    ========================================================= */
 
 function loadStatus() {
@@ -311,29 +311,20 @@ function loadStatus() {
         return;
     }
 
-
-    /*
-       IMPORTANT:
-
-       Power Automate URL already contains ?
-
-       Therefore we use &id=
-       NOT ?id=
-    */
-
-    var requestUrl =
-        STATUS_FLOW_URL +
-        "&id=" +
-        encodeURIComponent(interviewId);
-
+    var requestUrl = STATUS_FLOW_URL;
 
     fetch(requestUrl, {
 
-        method: "GET",
+        method: "POST",
 
         headers: {
+            "Content-Type": "application/json",
             "Accept": "application/json"
-        }
+        },
+
+        body: JSON.stringify({
+            id: interviewId
+        })
 
     })
 
@@ -407,7 +398,7 @@ function loadStatus() {
 
 
 /* =========================================================
-   FLOW 2
+   FLOW 2 (FIXED - Empty JSON Response Safe)
    SUBMIT INTERVIEW FEEDBACK
    ========================================================= */
 
@@ -518,7 +509,14 @@ function submitFeedback(action) {
 
         }
 
-        return response.json();
+        // Handles empty responses gracefully without throwing JSON syntax errors
+        var contentType = response.headers.get("content-type");
+
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+            return response.json();
+        }
+
+        return {};
 
     })
 
