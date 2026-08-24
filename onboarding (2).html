@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppToMax - Candidate Onboarding Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      line-height: 1.5;
+    }
+
+    .portal-card {
+      background: var(--card-bg);
+      width: 100%;
+      max-width: 620px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .portal-header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #ffffff;
+      padding: 36px 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .portal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #6366f1);
+    }
+
+    .portal-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 4px;
+    }
+
+    .portal-header p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .portal-body {
+      padding: 36px 32px;
+    }
+
+    #loader {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 40px 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    #loader::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--success-light);
+      color: #047857;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 18px;
+    }
+
+    .badge::before {
+      content: '✓';
+      font-weight: 900;
+    }
+
+    .welcome-text {
+      font-size: 1.025rem;
+      color: #334155;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .welcome-text strong {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .doc-row {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .doc-row:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+      font-size: 0.925rem;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      text-transform: capitalize;
+    }
+
+    label span {
+      color: #ef4444;
+      margin-left: 2px;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    input[type="file"]::file-selector-button {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.825rem;
+      cursor: pointer;
+      margin-right: 12px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    input[type="file"]::file-selector-button:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    button {
+      width: 100%;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 12px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      background: #94a3b8;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    #status {
+      margin-top: 24px;
+      font-weight: 600;
+      text-align: center;
+      font-size: 0.925rem;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 480px) {
+      .portal-header, .portal-body {
+        padding: 24px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="portal-card">
+  <!-- Dynamic Company Header -->
+  <div class="portal-header">
+    <h1 id="companyName">Pre-Onboarding Document Portal</h1>
+    <p>Document Submission Phase</p>
+  </div>
+
+  <div class="portal-body">
+    <div id="loader">Loading your onboarding profile...</div>
+    
+    <div id="portalContent" style="display:none;">
+      <span class="badge">Interview Cleared</span>
+      <p class="welcome-text">
+        Congratulations <strong id="candidateName">Candidate</strong>! You have successfully completed all interview rounds. Please upload the required documents below to complete your joining verification.
+      </p>
+
+      <form id="docForm">
+        <div id="fieldsContainer"></div>
+        <button type="submit" id="btnSubmit">Submit All Documents</button>
+      </form>
+    </div>
+
+    <div id="status"></div>
+  </div>
+</div>
+
+<script>
+  const FLOW_1_URL = "https://2ee217396b6fe0ffb476c1e33c828f.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/16/workflows/bd06ace2d91842f19ce5708b2a569106/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=8K6qhRoujFZNreMzR8TmVwQR2ZUMUcQfICgY6dX_nj0";
+  const FLOW_2_URL = "https://2ee217396b6fe0ffb476c1e33c828f.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/19/workflows/da85cce6461b44e18124d986027a1092/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Ll6_pwJ04z97Or-TsoekTIimC9lp1W0vh5L24MbvuJ0";
+
+  // Extracts candidate ID parameter from URL (?joinningdocs=...)
+  const urlParams = new URLSearchParams(window.location.search);
+  const candidateId = urlParams.get('joinningdocs');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!candidateId) {
+      document.getElementById('loader').innerText = "Error: Invalid link. Application ID missing from URL.";
+      return;
+    }
+    fetchPortalData();
+  });
+
+  // Step 1: Fetch Profile and Pending Docs from Flow 1
+  async function fetchPortalData() {
+    try {
+      const response = await fetch(FLOW_1_URL, { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ applicationId: candidateId })
+      });
+
+      if (!response.ok) throw new Error(`Flow 1 Error: ${response.status}`);
+      
+      const data = await response.json();
+      renderPortal(data);
+
+    } catch (err) {
+      console.error(err);
+      document.getElementById('loader').innerText = "Unable to load onboarding session. Please refresh or contact HR.";
+    }
+  }
+
+  // Populate dynamic header, welcome note, and document inputs
+  function renderPortal(data) {
+    document.getElementById('loader').style.display = 'none';
+
+    if (data.companyName) {
+      document.getElementById('companyName').innerText = data.companyName;
+    }
+    if (data.candidateName) {
+      document.getElementById('candidateName').innerText = data.candidateName;
+    }
+
+    const docs = data.pendingDocuments || [];
+    const container = document.getElementById('fieldsContainer');
+
+    if (!Array.isArray(docs) || docs.length === 0) {
+      document.getElementById('status').style.color = "#10b981";
+      document.getElementById('status').innerText = "All required joining documents have been submitted and verified.";
+      return;
+    }
+
+    docs.forEach(doc => {
+      const docName = typeof doc === 'string' ? doc : doc.DocumentType;
+      
+      const div = document.createElement('div');
+      div.className = 'doc-row';
+      div.innerHTML = `
+        <label>${docName.replace(/_/g, ' ')} <span>*</span></label>
+        <input type="file" required data-doctype="${docName}">
+      `;
+      container.appendChild(div);
+    });
+
+    document.getElementById('portalContent').style.display = 'block';
+  }
+
+  // Convert binary file to Base64
+  const fileToBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = error => reject(error);
+  });
+
+  // Step 2: Sequential File Submissions to Flow 2
+  document.getElementById('docForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmit');
+    const status = document.getElementById('status');
+    const inputs = document.querySelectorAll('#fieldsContainer input[type="file"]');
+
+    btn.disabled = true;
+    status.style.color = "#334155";
+
+    try {
+      for (const input of inputs) {
+        if (input.files.length > 0) {
+          const file = input.files[0];
+          const docType = input.dataset.doctype;
+          
+          status.innerText = `Uploading ${docType.replace(/_/g, ' ')}...`;
+          
+          const base64Content = await fileToBase64(file);
+
+          const payload = {
+            applicationId: candidateId,
+            documentType: docType,
+            fileName: file.name,
+            fileContentBase64: base64Content
+          };
+
+          const uploadRes = await fetch(FLOW_2_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!uploadRes.ok) throw new Error(`Upload failed for ${docType}`);
+        }
+      }
+
+      status.style.color = "#10b981";
+      status.innerText = "All documents submitted successfully! HR will review your submission.";
+      document.getElementById('docForm').style.display = 'none';
+
+    } catch (err) {
+      console.error(err);
+      status.style.color = "#ef4444";
+      status.innerText = "Submission failed for one or more files. Please try again.";
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>
