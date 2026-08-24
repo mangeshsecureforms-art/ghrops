@@ -687,6 +687,17 @@
         }
 
 
+        .form-group input[readonly] {
+
+            background: var(--mist);
+
+            color: var(--slate);
+
+            cursor: not-allowed;
+
+        }
+
+
         .form-group textarea {
 
             min-height: 90px;
@@ -1196,6 +1207,30 @@
 
         <form
             id="applicationForm">
+
+
+            <!-- POSITION -->
+
+            <div class="form-group">
+
+
+                <label>
+
+                    Position
+                    <span class="required">*</span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="position"
+                    readonly
+                    required>
+
+
+            </div>
+
 
 
             <!-- FIRST / LAST NAME -->
@@ -1850,6 +1885,13 @@ document.getElementById(
 
 
         document.getElementById(
+            "position"
+        ).value =
+            window.currentJob.designation ||
+            "";
+
+
+        document.getElementById(
             "applicationModal"
         ).classList.remove(
             "hidden"
@@ -2140,6 +2182,14 @@ document.getElementById(
 
                 jobToken:
                     jobToken,
+
+
+                // POSITION
+
+                position:
+                    document.getElementById(
+                        "position"
+                    ).value.trim(),
 
 
                 // JOB OWNER
