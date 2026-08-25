@@ -3,586 +3,738 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HR Pre-onboarding (ATS) — Hire to Day 1, in one app</title>
+<title>Apptomax Recruit — End-to-End Recruitment & Pre-Onboarding Platform</title>
+<meta name="description" content="Apptomax Recruit manages the complete candidate journey from job posting to onboarding document collection, built on Microsoft Power Platform.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#15111f;
-    --ink-soft:#3a3450;
-    --paper:#faf8ff;
-    --surface:#ffffff;
-    --line:#ece7f7;
-
-    --violet:#6d28d9;
-    --violet-deep:#4c1d95;
-    --violet-tint:#efe7fd;
-
-    --teal:#0f9e9a;
-    --teal-tint:#e2f7f5;
-
-    --coral:#ff5a45;
-    --coral-tint:#ffe9e4;
-
-    --amber:#f0a020;
-    --amber-tint:#fdf0dc;
-
-    --mint:#1fae65;
-    --mint-tint:#e2f7ea;
-
-    --peri:#7c7ff0;
-    --peri-tint:#ecebfe;
-
-    --pink:#e8408f;
-    --pink-tint:#fce6f1;
-
-    --sky:#2f8cf0;
-    --sky-tint:#e4f0fe;
-
-    --radius:18px;
-    --shadow: 0 20px 45px -20px rgba(21,17,31,0.25);
+    --navy:#1C1B3A;
+    --ink:#241F3D;
+    --muted:#655F82;
+    --line:#EAE3F7;
+    --bg:#FFFFFF;
+    --bg-soft:#F8F5FF;
+    --blue:#5B3DE0;
+    --blue-dark:#4527C4;
+    --orange:#FF7A45;
+    --stage-1:#5B3DE0;
+    --stage-2:#E0507C;
+    --stage-3:#00B4A6;
+    --stage-4:#FF7A45;
+    --stage-5:#2FA88F;
+    --stage-6:#2E9BE6;
+    --stage-7:#C24FE0;
+    --stage-8:#3AC26E;
+    --stage-9:#FFB020;
+    --grad-1:linear-gradient(135deg,#5B3DE0,#E0507C);
+    --grad-2:linear-gradient(135deg,#2E9BE6,#00B4A6);
+    --grad-3:linear-gradient(135deg,#FF7A45,#FFB020);
+    --radius:14px;
+    --shadow:0 8px 30px rgba(28,27,58,0.10);
+    --shadow-lg:0 20px 60px rgba(28,27,58,0.18);
   }
-
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     margin:0;
-    background:var(--paper);
+    font-family:'Inter',system-ui,sans-serif;
     color:var(--ink);
-    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3,.font-display{
-    font-family:'Sora',sans-serif;
+  h1,h2,h3,h4{
+    font-family:'Manrope',sans-serif;
+    color:var(--navy);
+    margin:0 0 .5em;
+    line-height:1.15;
     letter-spacing:-0.01em;
-    color:var(--ink);
   }
-  .mono{font-family:'JetBrains Mono',monospace;}
-  a{color:inherit; text-decoration:none;}
-  img{max-width:100%; display:block;}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  p{margin:0 0 1em;color:var(--muted);}
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
   section{padding:96px 0;}
-  @media (max-width:720px){ section{padding:64px 0;} .wrap{padding:0 20px;} }
-
-  /* ---------- reveal ---------- */
-  .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease;}
-  .reveal.in{opacity:1; transform:translateY(0);}
-
-  /* ---------- buttons ---------- */
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    padding:13px 26px; border-radius:999px; font-weight:600; font-size:15px;
-    cursor:pointer; border:1.5px solid transparent; white-space:nowrap;
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease;
+  .eyebrow{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue);
+    background:rgba(42,92,219,0.08);
+    padding:6px 14px;
+    border-radius:999px;
+    margin-bottom:18px;
   }
-  .btn:active{transform:translateY(1px);}
-  .btn-primary{ background: linear-gradient(135deg, var(--violet), var(--coral)); color:#fff; box-shadow:0 14px 30px -12px rgba(109,40,217,0.55);}
-  .btn-primary:hover{ box-shadow:0 18px 36px -12px rgba(255,90,69,0.55); transform:translateY(-1px);}
-  .btn-ghost{ background:transparent; border-color:var(--line); color:var(--ink);}
-  .btn-ghost:hover{ border-color:var(--teal); color:var(--teal);}
-  .btn-teal{ background:var(--teal-tint); color:var(--teal); border-color:transparent;}
-  .btn-teal:hover{ background:var(--teal); color:#fff;}
-  .btn-ink{ background:var(--ink); color:#fff;}
-  .btn-ink:hover{ background:var(--violet-deep);}
-  .btn-sm{padding:10px 18px; font-size:13.5px;}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 26px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--grad-1);color:#fff;box-shadow:0 10px 26px rgba(91,61,224,0.35);}
+  .btn-primary:hover{filter:brightness(1.08);}
+  .btn-ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+  .btn-outline-light{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4);}
+  .btn-outline-light:hover{border-color:#fff;}
 
-  /* ---------- header ---------- */
+  /* NAV */
   header{
-    position:sticky; top:0; z-index:50;
-    background:rgba(250,248,255,0.85);
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.92);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
-  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:20px;}
-  .brand{ display:flex; align-items:center; gap:12px; }
-  .logo-mark{
-    width:38px; height:38px; border-radius:11px; background:var(--ink);
-    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;max-width:1180px;margin:0 auto;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;color:var(--navy);}
+  .brand .mark{width:32px;height:32px;border-radius:9px;background:var(--grad-1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;}
+  .logo-img{height:34px;width:auto;object-fit:contain;}
+  .foot-brand-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .foot-brand-row .logo-img{height:30px;filter:brightness(0) invert(1);}
+  .nav-links{display:flex;gap:30px;font-size:14.5px;font-weight:600;color:var(--ink);}
+  .nav-links a:hover{color:var(--blue);}
+  .nav-cta{display:flex;gap:12px;align-items:center;}
+  .nav-cta .btn{padding:10px 20px;font-size:14px;}
+  .menu-toggle{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--navy);}
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .nav-cta .btn-ghost{display:none;}
+    .menu-toggle{display:block;}
   }
-  .logo-mark svg{width:18px; height:18px;}
-  .brand-text{ display:flex; flex-direction:column; line-height:1.05; }
-  .brand-text .name{ font-family:'Sora',sans-serif; font-weight:700; font-size:16.5px; color:var(--violet); }
-  .brand-text .tag{ font-size:11px; font-weight:600; color:var(--teal); letter-spacing:.04em; }
-  .nav-links{ display:flex; gap:30px; font-size:14.5px; font-weight:500; color:var(--ink-soft); }
-  .nav-links a:hover{ color:var(--violet); }
-  .nav-actions{ display:flex; align-items:center; gap:10px; }
-  @media (max-width:860px){ .nav-links{display:none;} }
-  @media (max-width:520px){ .nav-actions .btn span.long{display:none;} }
 
-  /* ---------- hero ---------- */
-  .hero{ padding-top:72px; padding-bottom:40px; overflow:hidden; }
-  .hero-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; }
-  @media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; } }
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px; padding:7px 14px 7px 8px;
-    background:var(--violet-tint); color:var(--violet); border-radius:999px;
-    font-size:12.5px; font-weight:700; letter-spacing:.02em; margin-bottom:22px;
+  /* HERO */
+  .hero{
+    background:
+      radial-gradient(600px 320px at 8% -10%, rgba(91,61,224,0.14), transparent 60%),
+      radial-gradient(560px 300px at 96% 0%, rgba(224,80,124,0.14), transparent 60%),
+      radial-gradient(500px 280px at 50% 110%, rgba(0,180,166,0.10), transparent 60%),
+      #FFFFFF;
+    padding:88px 0 60px;
+    position:relative;
+    overflow:hidden;
   }
-  .eyebrow .dot{ width:8px; height:8px; border-radius:50%; background:var(--coral); }
-  .hero h1{ font-size:clamp(34px,4.6vw,54px); line-height:1.08; font-weight:800; margin:0 0 20px; }
-  .hero h1 .accent{ background:linear-gradient(100deg,var(--violet),var(--coral)); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .hero p.lead{ font-size:17.5px; line-height:1.65; color:var(--ink-soft); max-width:520px; margin:0 0 32px; }
-  .hero-ctas{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-  .price-note{ font-size:13.5px; color:var(--ink-soft); }
-  .price-note strong{ color:var(--ink); font-family:'JetBrains Mono',monospace; }
-
-  /* hero mock */
-  .mock-frame{
-    background:var(--surface); border-radius:22px; box-shadow:var(--shadow);
-    border:1px solid var(--line); padding:18px; position:relative;
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+  @media(max-width:960px){.hero-grid{grid-template-columns:1fr;}}
+  .hero h1{font-size:clamp(32px,4.6vw,52px);}
+  .hero .lede{font-size:18px;max-width:560px;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0 18px;}
+  .hero-note{font-size:13.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;}
+  .hero-note .dot{color:var(--line);}
+  .hero-visual{
+    background:#fff;
+    border-radius:20px;
+    box-shadow:var(--shadow-lg);
+    border:1px solid var(--line);
+    padding:22px;
   }
-  .mock-topbar{ display:flex; align-items:center; gap:6px; margin-bottom:14px; }
-  .mock-topbar span{ width:9px; height:9px; border-radius:50%; background:var(--line); }
-  .mock-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
-  .mock-title{ font-family:'Sora',sans-serif; font-weight:700; color:var(--violet); font-size:15px;}
-  .mock-select{ font-size:11.5px; color:var(--ink-soft); background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:5px 10px;}
-  .mock-row{
-    display:flex; align-items:center; justify-content:space-between;
-    border-radius:12px; padding:12px 14px; margin-bottom:10px; border:1px solid var(--line);
+  .hv-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .hv-head strong{font-family:'Manrope',sans-serif;font-size:14px;color:var(--navy);}
+  .hv-pill{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:rgba(47,168,143,.12);color:var(--stage-5);}
+  .hv-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;font-size:13.5px;}
+  .hv-row .who{display:flex;align-items:center;gap:10px;}
+  .avatar{width:30px;height:30px;border-radius:50%;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue);}
+  .hv-tag{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;}
+  .tag-blue{background:rgba(42,92,219,.1);color:var(--blue);}
+  .tag-orange{background:rgba(242,153,74,.14);color:var(--orange);}
+  .tag-green{background:rgba(76,175,109,.14);color:var(--stage-8);}
+  .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px;}
+  .stat{background:#fff;border:1px solid var(--line);border-top:3px solid var(--stage-1);border-radius:12px;padding:16px 14px;text-align:center;}
+  .stat:nth-child(2){border-top-color:var(--stage-2);}
+  .stat:nth-child(3){border-top-color:var(--stage-3);}
+  .stat:nth-child(4){border-top-color:var(--stage-4);}
+  .stat b{display:block;font-family:'Manrope',sans-serif;font-size:24px;color:var(--navy);}
+  .stat span{font-size:12px;color:var(--muted);}
+  @media(max-width:640px){.hero-stats{grid-template-columns:repeat(2,1fr);}}
+
+  /* SECTION HEAD */
+  .sec-head{max-width:680px;margin-bottom:52px;}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .sec-head h2{font-size:clamp(26px,3.4vw,36px);}
+
+  /* FLOW */
+  .flow-list{display:flex;flex-direction:column;gap:0;}
+  .flow-item{
+    display:grid;
+    grid-template-columns:88px 1fr;
+    gap:22px;
+    padding:26px 0;
+    border-top:1px solid var(--line);
+    position:relative;
   }
-  .mock-row .badge{
-    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11px;
-    padding:4px 10px; border-radius:999px; color:#fff;
+  .flow-item:last-child{border-bottom:1px solid var(--line);}
+  .flow-num{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:22px;
+    color:#fff;
+    width:56px;height:56px;
+    border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
   }
-  .mock-row .who{ font-size:13px; font-weight:600; }
-  .mock-row .chev{ color:var(--ink-soft); opacity:.5; }
-  .mock-foot{ display:flex; align-items:center; justify-content:space-between; margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); }
-  .mock-status{ display:flex; align-items:center; gap:8px; font-size:12px; color:var(--ink-soft);}
-  .mock-status .ok{ width:20px; height:20px; border-radius:50%; background:var(--mint-tint); color:var(--mint); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;}
-  .float-chip{
-    position:absolute; background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow);
-    border-radius:14px; padding:10px 14px; font-size:12px; font-weight:600; display:flex; align-items:center; gap:8px;
+  .flow-item h3{font-size:18px;margin-bottom:6px;}
+  .flow-item p{margin:0;font-size:15px;max-width:640px;}
+  .bg-1{background:var(--stage-1);} .bg-2{background:var(--stage-2);} .bg-3{background:var(--stage-3);}
+  .bg-4{background:var(--stage-4);} .bg-5{background:var(--stage-5);} .bg-6{background:var(--stage-6);}
+  .bg-7{background:var(--stage-7);} .bg-8{background:var(--stage-8);} .bg-9{background:var(--stage-9);}
+
+  /* FEATURES */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media(max-width:940px){.feat-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:640px){.feat-grid{grid-template-columns:1fr;}}
+  .feat-card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 24px;transition:box-shadow .2s ease, transform .2s ease;
   }
-  .float-chip .swatch{ width:9px; height:9px; border-radius:3px; }
-  .fc1{ top:-18px; right:10px; }
-  .fc2{ bottom:-16px; left:-14px; }
-  @media (max-width:520px){ .float-chip{ display:none; } }
+  .feat-card:hover{box-shadow:var(--shadow);transform:translateY(-3px);}
+  .feat-icon{width:42px;height:42px;border-radius:10px;background:rgba(91,61,224,.1);color:var(--stage-1);display:flex;align-items:center;justify-content:center;font-size:19px;margin-bottom:16px;}
+  .feat-card:nth-child(11n+2) .feat-icon{background:rgba(224,80,124,.12);color:var(--stage-2);}
+  .feat-card:nth-child(11n+3) .feat-icon{background:rgba(0,180,166,.12);color:var(--stage-3);}
+  .feat-card:nth-child(11n+4) .feat-icon{background:rgba(255,122,69,.12);color:var(--stage-4);}
+  .feat-card:nth-child(11n+5) .feat-icon{background:rgba(47,168,143,.12);color:var(--stage-5);}
+  .feat-card:nth-child(11n+6) .feat-icon{background:rgba(46,155,230,.12);color:var(--stage-6);}
+  .feat-card:nth-child(11n+7) .feat-icon{background:rgba(194,79,224,.12);color:var(--stage-7);}
+  .feat-card:nth-child(11n+8) .feat-icon{background:rgba(58,194,110,.12);color:var(--stage-8);}
+  .feat-card:nth-child(11n+9) .feat-icon{background:rgba(255,176,32,.15);color:#C98600;}
+  .feat-card:hover{border-color:var(--stage-1);}
+  .feat-card h3{font-size:16.5px;margin-bottom:8px;}
+  .feat-card p{font-size:14.5px;margin:0;}
 
-  /* ---------- stat band ---------- */
-  .stat-band{ background:var(--ink); color:#fff; padding:52px 0; }
-  .stat-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; text-align:center; }
-  @media (max-width:760px){ .stat-grid{ grid-template-columns:repeat(2,1fr); gap:32px 20px; } }
-  .stat-num{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:clamp(28px,4vw,40px); }
-  .stat-num.c1{color:var(--peri);} .stat-num.c2{color:var(--coral);} .stat-num.c3{color:var(--amber);} .stat-num.c4{color:var(--mint);}
-  .stat-label{ font-size:12.5px; color:#c9c3de; margin-top:6px; letter-spacing:.02em; }
+  /* SPLIT SECTIONS */
+  .split{background:var(--bg-soft);}
+  .split-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  @media(max-width:900px){.split-grid{grid-template-columns:1fr;}}
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+  .chip{background:#fff;border:1.5px solid var(--line);padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:700;color:var(--navy);}
+  .chip:nth-child(8n+1){border-color:rgba(91,61,224,.35);color:var(--stage-1);}
+  .chip:nth-child(8n+2){border-color:rgba(224,80,124,.35);color:var(--stage-2);}
+  .chip:nth-child(8n+3){border-color:rgba(0,180,166,.35);color:var(--stage-3);}
+  .chip:nth-child(8n+4){border-color:rgba(255,122,69,.35);color:var(--stage-4);}
+  .chip:nth-child(8n+5){border-color:rgba(46,155,230,.35);color:var(--stage-6);}
+  .chip:nth-child(8n+6){border-color:rgba(194,79,224,.35);color:var(--stage-7);}
+  .chip:nth-child(8n+7){border-color:rgba(58,194,110,.35);color:var(--stage-8);}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow);}
+  .panel-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;}
+  .panel-row:last-child{border-bottom:none;}
 
-  /* ---------- section heads ---------- */
-  .sec-head{ max-width:640px; margin-bottom:52px; }
-  .sec-eyebrow{ font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; color:var(--teal); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
-  .sec-head h2{ font-size:clamp(26px,3.4vw,36px); font-weight:800; margin:0 0 14px; }
-  .sec-head p{ color:var(--ink-soft); font-size:16px; line-height:1.6; margin:0;}
+  .interview-flow{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:34px;}
+  .flow-node{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 16px;font-size:13.5px;font-weight:600;color:var(--navy);box-shadow:0 2px 8px rgba(18,33,63,.05);}
+  .flow-arrow{color:var(--muted);font-size:16px;}
 
-  /* ---------- pipeline strip ---------- */
-  .pipe-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-  @media (max-width:900px){ .pipe-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:520px){ .pipe-grid{ grid-template-columns:1fr; } }
-  .pipe-card{
-    background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:20px;
-    border-top:4px solid var(--stage-color); transition:transform .2s ease, box-shadow .2s ease;
+  .callout{
+    background:linear-gradient(135deg, rgba(42,92,219,.06), rgba(242,153,74,.06));
+    border:1px dashed var(--blue);
+    border-radius:12px;
+    padding:16px 20px;
+    font-size:14.5px;
+    color:var(--navy);
+    font-weight:600;
+    margin-top:20px;
   }
-  .pipe-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow); }
-  .pipe-num{ font-family:'JetBrains Mono',monospace; font-weight:700; font-size:13px; color:var(--stage-color); }
-  .pipe-name{ font-weight:700; font-size:15.5px; margin:8px 0 6px; }
-  .pipe-desc{ font-size:13.3px; color:var(--ink-soft); line-height:1.5; margin:0;}
 
-  /* ---------- features ---------- */
-  .feat-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-  @media (max-width:900px){ .feat-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:600px){ .feat-grid{ grid-template-columns:1fr; } }
-  .feat-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:26px; }
-  .feat-icon{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; margin-bottom:16px; background:var(--icon-tint); color:var(--icon-color); }
-  .feat-card h3{ font-size:16.5px; font-weight:700; margin:0 0 8px; }
-  .feat-card p{ font-size:13.8px; color:var(--ink-soft); line-height:1.55; margin:0; }
+  /* REPORT */
+  .report-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center;}
+  @media(max-width:900px){.report-wrap{grid-template-columns:1fr;}}
+  .report-doc{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-lg);padding:28px;}
+  .report-doc h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--blue);margin-bottom:16px;}
+  .report-list{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;}
+  .report-list div{font-size:13.5px;color:var(--ink);display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);}
+  .report-list div::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--stage-4);flex-shrink:0;}
+  .big-line{font-family:'Manrope',sans-serif;font-weight:800;font-size:clamp(22px,2.6vw,30px);color:var(--navy);margin-top:22px;}
 
-  /* ---------- screens showcase ---------- */
-  .screens-grid{ display:grid; grid-template-columns:1fr 1fr; gap:26px; }
-  @media (max-width:860px){ .screens-grid{ grid-template-columns:1fr; } }
-  .screen-card{ background:var(--surface); border:1px solid var(--line); border-radius:20px; box-shadow:var(--shadow); overflow:hidden; }
-  .screen-bar{ display:flex; align-items:center; gap:12px; padding:16px 18px; border-bottom:1px solid var(--line); background:var(--paper); }
-  .screen-bar .lgo{ width:26px; height:26px; border-radius:8px; background:var(--ink); display:flex; align-items:center; justify-content:center;}
-  .screen-bar .lgo svg{ width:12px; height:12px; }
-  .screen-bar .stitle{ font-family:'Sora',sans-serif; font-weight:700; color:var(--violet); font-size:13.5px; }
-  .screen-body{ padding:20px; }
-  .sb-row{ display:flex; align-items:center; justify-content:space-between; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px; }
-  .sb-row.selected{ background:var(--violet-tint); border-color:transparent; }
-  .sb-row .l{ display:flex; align-items:center; gap:10px; }
-  .sb-dot{ width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; }
-  .sb-t{ font-size:13.5px; font-weight:700; }
-  .sb-s{ font-size:11.5px; color:var(--ink-soft); }
-  .sb-field{ margin-bottom:12px; }
-  .sb-field label{ display:block; font-size:11.5px; color:var(--ink-soft); margin-bottom:5px; font-weight:600; }
-  .sb-field .val{ background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:9px 11px; font-size:12.5px; color:var(--ink); }
-  .screen-caption{ padding:14px 18px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); }
+  /* WHO IT'S FOR */
+  .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  @media(max-width:900px){.who-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:600px){.who-grid{grid-template-columns:1fr;}}
+  .who-card{border:1px solid var(--line);border-left:4px solid var(--stage-1);border-radius:var(--radius);padding:24px;background:#fff;}
+  .who-card:nth-child(6n+2){border-left-color:var(--stage-2);}
+  .who-card:nth-child(6n+3){border-left-color:var(--stage-3);}
+  .who-card:nth-child(6n+4){border-left-color:var(--stage-4);}
+  .who-card:nth-child(6n+5){border-left-color:var(--stage-6);}
+  .who-card:nth-child(6n+6){border-left-color:var(--stage-7);}
+  .who-card h3{font-size:16px;margin-bottom:6px;}
+  .who-card p{font-size:14px;margin:0;}
 
-  /* ---------- industries ---------- */
-  .ind-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-  @media (max-width:800px){ .ind-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:520px){ .ind-grid{ grid-template-columns:1fr; } }
-  .ind-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px; display:flex; gap:14px; align-items:flex-start; }
-  .ind-emoji{ font-size:26px; }
-  .ind-card h3{ font-size:15px; margin:0 0 4px; font-weight:700; }
-  .ind-card p{ font-size:13px; color:var(--ink-soft); margin:0; line-height:1.5; }
+  /* MS PLATFORM */
+  .ms-band{background:linear-gradient(135deg,#241F3D 0%, #3B2E7A 55%, #5B3DE0 100%);color:#fff;border-radius:20px;padding:56px;}
+  .ms-band h2, .ms-band p{color:#fff;}
+  .ms-band p{color:rgba(255,255,255,.72);}
+  .ms-logos{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;}
+  .ms-logo-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:12px 20px;border-radius:10px;font-weight:700;font-size:14px;}
 
-  /* ---------- pricing ---------- */
-  .price-wrap{ display:grid; grid-template-columns:1fr 1.15fr; gap:44px; align-items:center; }
-  @media (max-width:900px){ .price-wrap{ grid-template-columns:1fr; } }
+  /* PRICING */
+  .pricing-wrap{display:flex;justify-content:center;}
   .price-card{
-    background:var(--ink); color:#fff; border-radius:24px; padding:40px 34px; position:relative; overflow:hidden;
+    max-width:460px;width:100%;
+    background:#fff;border:1px solid var(--line);border-top:5px solid;
+    border-image:var(--grad-1) 1;
+    border-radius:20px;
+    padding:36px;box-shadow:var(--shadow-lg);
   }
-  .price-card::before{
-    content:""; position:absolute; inset:0; background:radial-gradient(circle at 85% -10%, rgba(255,90,69,0.35), transparent 55%);
-  }
-  .price-card > *{ position:relative; }
-  .price-plan{ font-size:13px; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:.06em; margin-bottom:14px; }
-  .price-amount{ display:flex; align-items:flex-end; gap:8px; margin-bottom:6px; }
-  .price-amount .num{ font-family:'JetBrains Mono',monospace; font-size:52px; font-weight:700; }
-  .price-amount .per{ font-size:15px; color:#c9c3de; padding-bottom:10px; }
-  .price-sub{ font-size:13.5px; color:#c9c3de; margin-bottom:28px; }
-  .price-list{ list-style:none; padding:0; margin:0 0 32px; display:flex; flex-direction:column; gap:12px; }
-  .price-list li{ display:flex; gap:10px; align-items:flex-start; font-size:14px; color:#e9e5f5; }
-  .price-list li .tick{ color:var(--mint); font-weight:700; flex-shrink:0; }
-  .price-card .btn-primary{ width:100%; }
-  .price-side h2{ margin-bottom:14px; }
-  .price-side p{ color:var(--ink-soft); font-size:15.5px; line-height:1.65; margin-bottom:18px; }
-  .price-side ul{ margin:0; padding-left:20px; color:var(--ink-soft); font-size:14.5px; line-height:1.9; }
+  .price-card .eyebrow{margin-bottom:8px;}
+  .price-value{font-family:'Manrope',sans-serif;font-weight:800;font-size:44px;color:var(--navy);margin:8px 0 2px;}
+  .price-value span{font-size:16px;font-weight:600;color:var(--muted);}
+  .price-list{list-style:none;padding:0;margin:24px 0 28px;display:grid;gap:11px;}
+  .price-list li{display:flex;gap:10px;font-size:14.5px;color:var(--ink);}
+  .price-list li::before{content:"✓";color:var(--stage-8);font-weight:800;}
+  .price-card .btn{width:100%;justify-content:center;}
 
-  /* ---------- faq ---------- */
-  .faq-list{ display:flex; flex-direction:column; gap:12px; max-width:820px; }
-  .faq-item{ background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
-  .faq-item summary{ list-style:none; cursor:pointer; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; font-weight:600; font-size:15px; }
-  .faq-item summary::-webkit-details-marker{ display:none; }
-  .faq-item summary .plus{ font-family:'JetBrains Mono',monospace; color:var(--violet); font-size:18px; transition:transform .25s ease; flex-shrink:0; margin-left:16px; }
-  .faq-item[open] summary .plus{ transform:rotate(45deg); }
-  .faq-item .faq-body{ padding:0 22px 20px; color:var(--ink-soft); font-size:14.3px; line-height:1.65; }
+  /* FAQ */
+  .faq-list{display:grid;gap:12px;max-width:820px;margin:0 auto;}
+  details{border:1px solid var(--line);border-radius:12px;padding:18px 22px;background:#fff;}
+  summary{cursor:pointer;font-weight:700;font-size:15.5px;color:var(--navy);list-style:none;display:flex;justify-content:space-between;align-items:center;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";font-size:20px;color:var(--blue);font-weight:400;}
+  details[open] summary::after{content:"–";}
+  details p{margin:14px 0 0;font-size:14.5px;}
 
-  /* ---------- final cta ---------- */
+  /* FINAL CTA */
   .final-cta{
-    background:linear-gradient(120deg, var(--violet-deep), var(--violet) 45%, var(--coral));
-    border-radius:28px; padding:60px 44px; text-align:center; color:#fff; margin:0 28px;
+    background:linear-gradient(120deg,#5B3DE0 0%, #C24FE0 50%, #E0507C 100%);
+    border-radius:24px;
+    padding:64px 40px;
+    text-align:center;
+    color:#fff;
   }
-  .final-cta h2{ color:#fff; font-size:clamp(24px,3.6vw,34px); margin:0 0 12px; }
-  .final-cta p{ color:#f0eaff; font-size:15.5px; margin:0 0 30px; }
-  .final-actions{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
-  .final-cta .btn-ghost{ border-color:rgba(255,255,255,0.45); color:#fff; }
-  .final-cta .btn-ghost:hover{ background:rgba(255,255,255,0.12); border-color:#fff; color:#fff; }
-  .final-cta .btn-primary{ background:#fff; color:var(--violet-deep); box-shadow:none; }
-  .final-cta .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 14px 30px -12px rgba(0,0,0,0.3); }
+  .final-cta h2, .final-cta p{color:#fff;}
+  .final-cta p{color:rgba(255,255,255,.85);max-width:560px;margin:0 auto 26px;}
+  .final-cta .btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
 
-  /* ---------- footer ---------- */
-  footer{ padding:60px 0 40px; }
-  .foot-grid{ display:flex; justify-content:space-between; align-items:flex-start; gap:30px; flex-wrap:wrap; border-top:1px solid var(--line); padding-top:36px; }
-  .foot-brand p{ color:var(--ink-soft); font-size:13.5px; max-width:280px; line-height:1.6; margin-top:12px; }
-  .foot-links{ display:flex; gap:60px; flex-wrap:wrap; }
-  .foot-col h4{ font-size:12.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-soft); margin:0 0 12px; }
-  .foot-col a{ display:block; font-size:14px; color:var(--ink); margin-bottom:9px; }
-  .foot-col a:hover{ color:var(--violet); }
-  .foot-bottom{ margin-top:40px; padding-top:20px; border-top:1px solid var(--line); font-size:12.5px; color:var(--ink-soft); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  /* FOOTER */
+  footer{background:var(--navy);color:rgba(255,255,255,.7);padding:64px 0 30px;font-size:14px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12);}
+  @media(max-width:800px){.foot-grid{grid-template-columns:1fr 1fr;}}
+  .foot-brand{font-family:'Manrope',sans-serif;font-weight:800;font-size:19px;color:#fff;margin-bottom:8px;}
+  .foot-sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:14px;}
+  .foot-col h5{color:#fff;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;}
+  .foot-col a{display:block;color:rgba(255,255,255,.7);margin-bottom:10px;font-size:14px;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:rgba(255,255,255,.5);}
+
+  ::selection{background:rgba(42,92,219,.2);}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="wrap nav">
-    <div class="brand">
-      <div class="logo-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 4 L20 20 L14.5 20 L12 14.5 L9.5 20 L4 20 Z" fill="white"/></svg>
-      </div>
-      <div class="brand-text">
-        <span class="name">HR Pre-onboarding</span>
-        <span class="tag">ATS · hrops.apptomax.com</span>
-      </div>
-    </div>
-    <nav class="nav-links">
-      <a href="#pipeline">Pipeline</a>
+  <nav>
+    <div class="brand"><img src="https://lh3.googleusercontent.com/d/1xSs6FYW5bbp48dteBtuU7K9H-fHX6-qx" alt="Apptomax Recruit logo" class="logo-img"> Apptomax Recruit</div>
+    <div class="nav-links">
+      <a href="#flow">Recruitment Flow</a>
       <a href="#features">Features</a>
-      <a href="#screens">Inside the app</a>
+      <a href="#interviews">Interviews</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQs</a>
-    </nav>
-    <div class="nav-actions">
-      <a class="btn btn-teal btn-sm" href="https://hrops.apptomax.com/demo"><span class="long">Watch</span> Demo</a>
-      <a class="btn btn-ink btn-sm" href="https://hrops.apptomax.com/login">Login</a>
     </div>
-  </div>
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="https://hrops.apptomax.com/login">Login</a>
+      <a class="btn btn-primary" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
+    </div>
+    <button class="menu-toggle" aria-label="Menu">☰</button>
+  </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="wrap hero-grid">
-    <div class="reveal in">
-      <div class="eyebrow"><span class="dot"></span> Runs on your existing Microsoft 365 · ₹0 extra license</div>
-      <h1>From application<br> to Day 1 — <span class="accent">one colourful app.</span></h1>
-      <p class="lead">HR Pre-onboarding (ATS) takes every candidate through applications, interviews, offer and document collection automatically, so your HR team stops chasing emails and starts hiring.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="#pricing">Get the App</a>
-        <a class="btn btn-ghost" href="https://hrops.apptomax.com/demo">Start the Demo →</a>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Recruitment & Pre-Onboarding Platform</span>
+        <h1>From Job Opening to Onboarding — One Connected Recruitment Platform.</h1>
+        <p class="lede">Create positions, share application links, manage candidates, run multi-round interviews, collect interviewer feedback, collect onboarding documents, and complete HR verification — all from one connected recruitment system.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
+          <a class="btn btn-ghost" href="#flow">Explore the Recruitment Flow →</a>
+        </div>
+        <div class="hero-note">
+          <span>Built on Microsoft Power Platform</span><span class="dot">·</span>
+          <span>SharePoint-backed document management</span><span class="dot">·</span>
+          <span>Automated candidate communication</span>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>09</b><span>Stages in one platform</span></div>
+          <div class="stat"><b>∞</b><span>Interview rounds, your call</span></div>
+          <div class="stat"><b>1</b><span>Consolidated PDF record</span></div>
+          <div class="stat"><b>M365</b><span>Native ecosystem fit</span></div>
+        </div>
       </div>
-      <p class="price-note" style="margin-top:22px;">Plans start at <strong>₹899</strong>/month · no setup lock-in · live in 1–2 weeks</p>
-    </div>
-
-    <div class="reveal">
-      <div class="mock-frame">
-        <div class="float-chip fc1"><span class="swatch" style="background:var(--mint)"></span>Round_1 Shortlisted</div>
-        <div class="mock-topbar"><span></span><span></span><span></span></div>
-        <div class="mock-head">
-          <span class="mock-title">Interviews</span>
-          <span class="mock-select">Find Candidate ▾</span>
+      <div class="hero-visual">
+        <div class="hv-head"><strong>Interview Pipeline — Backend Developer</strong><span class="hv-pill">Round 2 of 3</span></div>
+        <div class="hv-row">
+          <div class="who"><span class="avatar">PN</span> Priya Nair</div>
+          <span class="hv-tag tag-blue">Interview scheduled, Thu 3:00 PM</span>
         </div>
-
-        <div class="mock-row" style="background:var(--mint-tint); border-color:transparent;">
-          <div class="who">Appideas Techno</div>
-          <span class="badge" style="background:var(--mint)">5</span>
+        <div class="hv-row">
+          <div class="who"><span class="avatar">AD</span> Arjun Desai</div>
+          <span class="hv-tag tag-orange">Awaiting interviewer feedback</span>
         </div>
-        <div class="mock-row" style="background:var(--coral-tint); border-color:transparent;">
-          <div class="who">Appideas Techno</div>
-          <span class="badge" style="background:var(--coral)">4</span>
+        <div class="hv-row">
+          <div class="who"><span class="avatar">NK</span> Neha Kulkarni</div>
+          <span class="hv-tag tag-green">Shortlisted for Round 3</span>
         </div>
-        <div class="mock-row" style="background:var(--peri-tint); border-color:transparent;">
-          <div class="who">Ogain Apptomation</div>
-          <span class="badge" style="background:var(--peri)">3</span>
+        <div class="hv-row" style="border-color:transparent;padding-top:4px;">
+          <div class="who" style="color:var(--muted);font-size:12.5px;">Feedback link sent to interviewer · updated 10 minutes ago</div>
         </div>
-        <div class="mock-row" style="background:var(--amber-tint); border-color:transparent;">
-          <div class="who">Appideas Techno</div>
-          <span class="badge" style="background:var(--amber)">2</span>
-        </div>
-
-        <div class="mock-foot">
-          <div class="mock-status"><span class="ok">✓</span> Interview scheduled · Online</div>
-          <span class="mono" style="font-size:11px; color:var(--ink-soft);">Sun, Aug 23</span>
-        </div>
-        <div class="float-chip fc2"><span class="swatch" style="background:var(--violet)"></span>Up to 5 interview rounds</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="stat-band">
-  <div class="wrap stat-grid">
-    <div class="reveal"><div class="stat-num c1">07</div><div class="stat-label">Stages in one app</div></div>
-    <div class="reveal"><div class="stat-num c2">05</div><div class="stat-label">Interview rounds, your call</div></div>
-    <div class="reveal"><div class="stat-num c3">1-2</div><div class="stat-label">Weeks to go live</div></div>
-    <div class="reveal"><div class="stat-num c4">₹0</div><div class="stat-label">Extra Microsoft license</div></div>
-  </div>
-</div>
-
-<section id="pipeline">
+<!-- RECRUITMENT FLOW -->
+<section id="flow">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-eyebrow">The pipeline</div>
-      <h2>Seven stages, colour-coded, fully connected.</h2>
-      <p>Every candidate moves through the same seven checkpoints, and every checkpoint has its own colour in the app — so status is visible at a glance, not buried in a spreadsheet.</p>
+    <div class="sec-head">
+      <span class="eyebrow">The Complete Recruitment Journey</span>
+      <h2>From Application to Onboarding, Everything Connected.</h2>
+      <p>Apptomax Recruit connects every stage of hiring so HR teams don't have to manage candidate information across spreadsheets, emails, forms and separate tools.</p>
     </div>
-    <div class="pipe-grid">
-      <div class="pipe-card reveal" style="--stage-color:var(--violet)"><div class="pipe-num">01</div><div class="pipe-name">Application Form</div><p class="pipe-desc">A custom form per open role, shared with one link.</p></div>
-      <div class="pipe-card reveal" style="--stage-color:var(--peri)"><div class="pipe-num">02</div><div class="pipe-name">HR Review &amp; Shortlist</div><p class="pipe-desc">Profile and call notes side by side — shortlist with one tap.</p></div>
-      <div class="pipe-card reveal" style="--stage-color:var(--coral)"><div class="pipe-num">03</div><div class="pipe-name">Interview Pipeline</div><p class="pipe-desc">Up to 5 rounds. Interviewers get a link, not an app login.</p></div>
-      <div class="pipe-card reveal" style="--stage-color:var(--mint)"><div class="pipe-num">04</div><div class="pipe-name">Offer Letter Generation</div><p class="pipe-desc">Enter the CTC, the whole letter builds itself.</p></div>
-      <div class="pipe-card reveal" style="--stage-color:var(--teal)"><div class="pipe-num">05</div><div class="pipe-name">Offer Approval &amp; Dispatch</div><p class="pipe-desc">One-click approval routing, then it's emailed automatically.</p></div>
-      <div class="pipe-card reveal" style="--stage-color:var(--pink)"><div class="pipe-num">06</div><div class="pipe-name">Document Collection</div><p class="pipe-desc">Candidates upload straight to your SharePoint — no paper.</p></div>
-      <div class="pipe-card reveal" style="--stage-color:var(--sky)"><div class="pipe-num">07</div><div class="pipe-name">Upcoming Joining List</div><p class="pipe-desc">IT, Admin and the manager get notified before Day 1 starts.</p></div>
+    <div class="flow-list">
+      <div class="flow-item">
+        <div class="flow-num bg-1">01</div>
+        <div><h3>Create Position</h3><p>Create a job position with role details and generate a unique candidate application link.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-2">02</div>
+        <div><h3>Candidate Application</h3><p>Share the application link with candidates. Applications automatically appear in the HR application dashboard.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-3">03</div>
+        <div><h3>Application Management</h3><p>Search, filter, review applications, view resumes, call candidates, send WhatsApp messages, send emails and shortlist candidates directly from the app.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-4">04</div>
+        <div><h3>Interview Pipeline</h3><p>Create multiple interview rounds for shortlisted candidates. Assign interviewers, schedule interviews and track the complete interview journey.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-5">05</div>
+        <div><h3>Interview Feedback</h3><p>Automatically send interview details to candidates and interviewers. Interviewers receive a secure feedback link where they can submit feedback and shortlist or reject the candidate.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-6">06</div>
+        <div><h3>Candidate Selection</h3><p>Once all required interview rounds are completed, HR can move the candidate toward onboarding and document collection.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-7">07</div>
+        <div><h3>Document Submission</h3><p>The candidate receives a secure document submission link and uploads the required onboarding documents.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-8">08</div>
+        <div><h3>HR Document Review</h3><p>HR reviews submitted documents. If a document is incorrect or missing, HR can mark only that document as pending and request resubmission.</p></div>
+      </div>
+      <div class="flow-item">
+        <div class="flow-num bg-9">09</div>
+        <div><h3>Final Recruitment Record</h3><p>HR can download a complete candidate recruitment report containing candidate details, application information, interview rounds, interviewer feedback/status, document submissions and submission history in one PDF.</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="features" style="background:var(--surface);">
+<!-- FEATURES -->
+<section id="features" class="split">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-eyebrow">Key features</div>
-      <h2>Everything HR used to chase by hand.</h2>
-      <p>Built as one connected app so nothing falls through the cracks between "applied" and "joined."</p>
+    <div class="sec-head center" style="margin-left:auto;margin-right:auto;">
+      <h2>Everything HR Needs to Manage Hiring</h2>
     </div>
     <div class="feat-grid">
-      <div class="feat-card reveal"><div class="feat-icon" style="--icon-tint:var(--violet-tint); --icon-color:var(--violet);">📄</div><h3>Documents, collected early</h3><p>Candidates upload joining paperwork digitally, well before their first day.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon" style="--icon-tint:var(--amber-tint); --icon-color:var(--amber);">🔔</div><h3>Reminders that send themselves</h3><p>Automated emails nudge candidates and HR, so nobody has to chase a reply.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon" style="--icon-tint:var(--peri-tint); --icon-color:var(--peri);">📝</div><h3>Self-service pre-joining form</h3><p>Candidates fill in their own details before joining — no back-and-forth emails.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon" style="--icon-tint:var(--coral-tint); --icon-color:var(--coral);">📊</div><h3>Live tracking for HR admins</h3><p>One dashboard shows exactly where every candidate stands, in real time.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon" style="--icon-tint:var(--mint-tint); --icon-color:var(--mint);">✅</div><h3>Checklist that runs itself</h3><p>Pre-onboarding steps trigger in order — nothing gets skipped or forgotten.</p></div>
-      <div class="feat-card reveal"><div class="feat-icon" style="--icon-tint:var(--sky-tint); --icon-color:var(--sky);">🔗</div><h3>Works inside Microsoft 365</h3><p>No new logins, no separate tool — it sits right alongside what your team already uses.</p></div>
+      <div class="feat-card"><div class="feat-icon">📥</div><h3>Candidate Application Management</h3><p>Manage every incoming application from one centralized dashboard with powerful filters and candidate search.</p></div>
+      <div class="feat-card"><div class="feat-icon">🔗</div><h3>Position & Application Links</h3><p>Create positions and instantly generate application links that can be shared directly with candidates.</p></div>
+      <div class="feat-card"><div class="feat-icon">💬</div><h3>Candidate Communication</h3><p>Contact candidates through email, phone and WhatsApp directly from the recruitment workflow.</p></div>
+      <div class="feat-card"><div class="feat-icon">📄</div><h3>Resume Management</h3><p>View candidate resumes and quickly shortlist candidates without leaving the application workflow.</p></div>
+      <div class="feat-card"><div class="feat-icon">🎯</div><h3>Multi-Round Interview Pipeline</h3><p>Create and manage multiple interview rounds for each candidate with interviewer assignment, scheduling and status tracking.</p></div>
+      <div class="feat-card"><div class="feat-icon">✉️</div><h3>Automated Interview Emails</h3><p>Automatically send interview details to candidates and interviewers whenever a new interview round is created.</p></div>
+      <div class="feat-card"><div class="feat-icon">🔒</div><h3>Interviewer Feedback</h3><p>Interviewers receive a secure feedback link where they can submit feedback, shortlist or reject candidates without requiring access to the HR application.</p></div>
+      <div class="feat-card"><div class="feat-icon">📤</div><h3>Onboarding Document Collection</h3><p>Send candidates a secure document submission link after successful completion of the interview process.</p></div>
+      <div class="feat-card"><div class="feat-icon">🔁</div><h3>Smart Document Resubmission</h3><p>If HR requires a correction, only the required document becomes available for resubmission instead of asking candidates to upload everything again.</p></div>
+      <div class="feat-card"><div class="feat-icon">🗂️</div><h3>Complete Candidate History</h3><p>Maintain the complete recruitment journey from application through interviews and document submission.</p></div>
+      <div class="feat-card"><div class="feat-icon">🧾</div><h3>One-Click Recruitment Report</h3><p>Download a consolidated PDF containing candidate details, interview rounds, feedback, document records and submission history.</p></div>
     </div>
   </div>
 </section>
 
-<section id="screens">
+<!-- APPLICATION MANAGEMENT -->
+<section>
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-eyebrow">Inside the app</div>
-      <h2>Built for how HR actually works.</h2>
-      <p>A quick look at two of the screens your team will live in every day.</p>
-    </div>
-    <div class="screens-grid">
-      <div class="screen-card reveal">
-        <div class="screen-bar">
-          <div class="lgo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4 L20 20 L14.5 20 L12 14.5 L9.5 20 L4 20 Z" fill="white"/></svg></div>
-          <span class="stitle">Open Positions</span>
+    <div class="split-grid">
+      <div>
+        <span class="eyebrow">Application Management</span>
+        <h2>A Single View of Every Candidate.</h2>
+        <p>Give HR teams complete visibility into incoming applications with filters, search, candidate details, resume access, communication actions and shortlisting — all from one screen.</p>
+        <div class="chip-row">
+          <span class="chip">Search</span><span class="chip">Filter</span><span class="chip">View Resume</span>
+          <span class="chip">Call</span><span class="chip">Email</span><span class="chip">WhatsApp</span><span class="chip">Shortlist</span>
         </div>
-        <div class="screen-body">
-          <div class="sb-row selected"><div class="l"><div class="sb-dot" style="background:var(--violet);">i</div><div><div class="sb-t">IT Executive</div><div class="sb-s">IT</div></div></div><span style="color:var(--violet);">✎</span></div>
-          <div class="sb-row"><div class="l"><div class="sb-dot" style="background:var(--mint);">i</div><div><div class="sb-t">Laptop Repair</div><div class="sb-s">IT</div></div></div><span style="color:var(--mint);">✎</span></div>
-          <div class="sb-field"><label>Department</label><div class="val">IT</div></div>
-          <div class="sb-field"><label>Location</label><div class="val">Mumbai</div></div>
-          <div class="sb-field"><label>Job Type</label><div class="val">Full-time</div></div>
-        </div>
-        <div class="screen-caption">HR posts a role once — the form and pipeline are ready instantly.</div>
       </div>
-
-      <div class="screen-card reveal">
-        <div class="screen-bar">
-          <div class="lgo"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4 L20 20 L14.5 20 L12 14.5 L9.5 20 L4 20 Z" fill="white"/></svg></div>
-          <span class="stitle">Schedule Interview</span>
-        </div>
-        <div class="screen-body">
-          <div class="sb-field"><label>Interview Round</label><div class="val">Round_1</div></div>
-          <div class="sb-field"><label>Interview Date &amp; Time</label><div class="val">Sun, Aug 23, 2026 · 00:03</div></div>
-          <div class="sb-field"><label>Mode</label><div class="val">Online</div></div>
-          <div class="sb-row" style="background:var(--mint-tint); border-color:transparent;"><div class="l"><div class="sb-dot" style="background:var(--mint);">✓</div><div><div class="sb-t">Shortlisted</div><div class="sb-s">23/08/26</div></div></div></div>
-        </div>
-        <div class="screen-caption">Every interviewer gets a private link — no app access needed on their end.</div>
+      <div class="panel">
+        <div class="panel-row"><span>Rohan Kapoor — Site Engineer</span><span class="hv-tag tag-blue">New application</span></div>
+        <div class="panel-row"><span>Sneha Joshi — Business Analyst</span><span class="hv-tag tag-green">Shortlisted</span></div>
+        <div class="panel-row"><span>Karan Malhotra — Sales Executive</span><span class="hv-tag tag-orange">Resume under review</span></div>
+        <div class="panel-row"><span>Divya Menon — HR Executive</span><span class="hv-tag tag-blue">New application</span></div>
+        <div class="panel-row"><span>Aditya Rane — Accounts Manager</span><span class="hv-tag tag-green">Shortlisted</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section style="background:var(--surface);">
+<!-- INTERVIEWS -->
+<section id="interviews" class="split">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-eyebrow">Who it's for</div>
-      <h2>One app, any industry hiring on Microsoft 365.</h2>
-      <p>Go live in 1–2 weeks — no developers required once it's deployed.</p>
+    <div class="sec-head">
+      <span class="eyebrow">Interview Pipeline</span>
+      <h2>Run Structured Interviews Without the Email Chaos.</h2>
+      <p>Create as many interview stages as your recruitment process requires. Assign interviewers, schedule each round and automatically communicate the interview details to everyone involved.</p>
     </div>
-    <div class="ind-grid">
-      <div class="ind-card reveal"><span class="ind-emoji">🏭</span><div><h3>Manufacturing &amp; Engineering</h3><p>Structured pipelines for shop-floor, supervisory and engineering roles.</p></div></div>
-      <div class="ind-card reveal"><span class="ind-emoji">💻</span><div><h3>IT &amp; Software</h3><p>Multi-round technical loops for developer and tech hiring.</p></div></div>
-      <div class="ind-card reveal"><span class="ind-emoji">🏥</span><div><h3>Healthcare &amp; Clinics</h3><p>Compliance certificates and KYC collected securely before day one.</p></div></div>
-      <div class="ind-card reveal"><span class="ind-emoji">🏦</span><div><h3>BFSI &amp; Finance</h3><p>Offer-approval workflows and policy sign-off for regulated hiring.</p></div></div>
-      <div class="ind-card reveal"><span class="ind-emoji">🏫</span><div><h3>Education</h3><p>Onboard teaching and non-teaching staff with department checklists.</p></div></div>
-      <div class="ind-card reveal"><span class="ind-emoji">🛒</span><div><h3>Retail &amp; E-commerce</h3><p>Scale seasonal bulk hiring without adding to the HR headcount.</p></div></div>
+    <div class="chip-row">
+      <span class="chip">Multiple interview rounds</span><span class="chip">Interviewer assignment</span>
+      <span class="chip">Interview scheduling</span><span class="chip">Candidate notifications</span>
+      <span class="chip">Interviewer notifications</span><span class="chip">Secure feedback links</span>
+      <span class="chip">Shortlist / Reject decisions</span><span class="chip">Interview history</span>
+    </div>
+    <div class="interview-flow">
+      <span class="flow-node">Candidate Shortlisted</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Interview Round Created</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Candidate + Interviewer Notified</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Interview Conducted</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Feedback Submitted</span><span class="flow-arrow">→</span>
+      <span class="flow-node">HR Receives Feedback</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Shortlisted / Rejected</span><span class="flow-arrow">→</span>
+      <span class="flow-node">Next Round</span>
     </div>
   </div>
 </section>
 
+<!-- DOCUMENT COLLECTION -->
+<section>
+  <div class="wrap">
+    <div class="split-grid">
+      <div class="panel">
+        <div class="panel-row" style="border-bottom:none;padding-bottom:0;"><span style="font-weight:700;color:var(--navy);">Neha Kulkarni — Document checklist</span><span></span></div>
+        <div class="panel-row"><span>Aadhaar Card</span><span class="hv-tag tag-green">Verified</span></div>
+        <div class="panel-row"><span>PAN Card</span><span class="hv-tag tag-green">Verified</span></div>
+        <div class="panel-row"><span>Educational Certificates</span><span class="hv-tag tag-orange">Pending resubmission</span></div>
+        <div class="panel-row"><span>Previous Employer Letter</span><span class="hv-tag tag-blue">Submitted</span></div>
+      </div>
+      <div>
+        <span class="eyebrow">Document Collection</span>
+        <h2>Collect Onboarding Documents Without the Follow-Up Chase.</h2>
+        <p>After the candidate successfully completes the recruitment process, HR can send a secure document submission link. Candidates upload their required onboarding documents digitally, while HR reviews every document from the app.</p>
+        <div class="chip-row">
+          <span class="chip">Digital document submission</span><span class="chip">Document-by-document review</span>
+          <span class="chip">Pending document requests</span><span class="chip">Candidate resubmission</span>
+          <span class="chip">Submission history</span><span class="chip">SharePoint-backed storage</span>
+        </div>
+        <div class="callout">No more "Please resend your Aadhaar" or "Please send the missing document" email chains.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL REPORT -->
+<section class="split">
+  <div class="wrap">
+    <div class="report-wrap">
+      <div>
+        <span class="eyebrow">Recruitment Record</span>
+        <h2>The Complete Recruitment Record — In One PDF.</h2>
+        <p>When the recruitment process is complete, HR can download a consolidated candidate report containing the complete recruitment history in a single PDF.</p>
+        <div class="big-line">One Candidate. One Complete Recruitment Record.</div>
+      </div>
+      <div class="report-doc">
+        <h4>Report Includes</h4>
+        <div class="report-list">
+          <div>Candidate Details</div>
+          <div>Application Details</div>
+          <div>Position Details</div>
+          <div>Interview Round 1</div>
+          <div>Interview Round 2</div>
+          <div>Interview Round 3</div>
+          <div>Interviewer Feedback</div>
+          <div>Shortlist / Reject History</div>
+          <div>Document Submission Details</div>
+          <div>Document Review Status</div>
+          <div>Pending / Resubmitted Docs</div>
+          <div>Complete Submission History</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MS PLATFORM -->
+<section>
+  <div class="wrap">
+    <div class="ms-band">
+      <span class="eyebrow" style="background:rgba(255,255,255,.1);color:#fff;">Built On Microsoft Power Platform</span>
+      <h2>Built for Companies Already Using Microsoft 365.</h2>
+      <p>Apptomax Recruit is built using Microsoft Power Platform and integrates with the Microsoft ecosystem your organization already uses.</p>
+      <div class="ms-logos">
+        <span class="ms-logo-chip">Power Apps</span>
+        <span class="ms-logo-chip">Power Automate</span>
+        <span class="ms-logo-chip">SharePoint</span>
+        <span class="ms-logo-chip">Microsoft 365</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="split">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Who It's For</span>
+      <h2>Built for Modern HR & Recruitment Teams.</h2>
+    </div>
+    <div class="who-grid">
+      <div class="who-card"><h3>HR Departments</h3><p>Manage the complete hiring process from one centralized application.</p></div>
+      <div class="who-card"><h3>Recruitment Agencies</h3><p>Manage multiple candidates, positions and interview workflows efficiently.</p></div>
+      <div class="who-card"><h3>Growing Companies</h3><p>Replace spreadsheets and disconnected email-based recruitment processes.</p></div>
+      <div class="who-card"><h3>Manufacturing & Engineering</h3><p>Manage structured hiring workflows across technical and operational positions.</p></div>
+      <div class="who-card"><h3>IT & Software</h3><p>Manage multi-round technical interviews and interviewer feedback.</p></div>
+      <div class="who-card"><h3>Enterprise HR Teams</h3><p>Standardize recruitment and onboarding document processes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
 <section id="pricing">
-  <div class="wrap price-wrap">
-    <div class="reveal">
-      <div class="price-card">
-        <div class="price-plan">Standard Plan</div>
-        <div class="price-amount"><span class="num">₹899</span><span class="per">/ month</span></div>
-        <div class="price-sub">Billed monthly · cancel anytime</div>
-        <ul class="price-list">
-          <li><span class="tick">✓</span> Full 7-stage hiring pipeline</li>
-          <li><span class="tick">✓</span> Up to 5 configurable interview rounds</li>
-          <li><span class="tick">✓</span> SharePoint-backed document vault</li>
-          <li><span class="tick">✓</span> Unlimited job postings &amp; candidates</li>
-          <li><span class="tick">✓</span> HR dashboard + automated reminders</li>
-          <li><span class="tick">✓</span> Setup, onboarding &amp; monthly support</li>
-        </ul>
-        <a class="btn btn-primary" href="https://hrops.apptomax.com/login">Get the App</a>
-      </div>
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Pricing</span>
+      <h2>Straightforward Pricing for Apptomax Recruit.</h2>
     </div>
-    <div class="reveal price-side">
-      <div class="sec-eyebrow">Pricing</div>
-      <h2>Straightforward pricing, no license surprises.</h2>
-      <p>HR Pre-onboarding (ATS) runs on the Microsoft 365 you already pay for — the ₹899/month covers the app itself, not extra platform licenses.</p>
-      <ul>
-        <li>No per-interviewer or per-candidate charges</li>
-        <li>No separate PowerApps or SharePoint fees</li>
-        <li>Free setup call to map your positions &amp; rounds</li>
-        <li>Upgrade or cancel any time, month to month</li>
-      </ul>
+    <div class="pricing-wrap">
+      <div class="price-card">
+        <span class="eyebrow">Recruitment & Pre-Onboarding</span>
+        <div class="price-value">₹800 <span>/ month</span></div>
+        <p>Complete recruitment and candidate onboarding workflow for growing companies. Billed monthly, cancel anytime.</p>
+        <ul class="price-list">
+          <li>Position creation & application links</li>
+          <li>Candidate application management</li>
+          <li>Advanced application filters</li>
+          <li>Candidate communication</li>
+          <li>Resume management</li>
+          <li>Multi-round interview pipeline</li>
+          <li>Automated interview emails</li>
+          <li>Interviewer feedback links</li>
+          <li>Candidate document submission</li>
+          <li>HR document verification</li>
+          <li>Document resubmission workflow</li>
+          <li>Complete recruitment history</li>
+          <li>Consolidated PDF report</li>
+        </ul>
+        <a class="btn btn-primary" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="faq" style="background:var(--surface);">
+<!-- FAQ -->
+<section id="faq" class="split">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="sec-eyebrow">FAQs</div>
-      <h2>Before you book the demo.</h2>
-      <p>Everything HR teams usually ask us first.</p>
+    <div class="sec-head center">
+      <span class="eyebrow">FAQs</span>
+      <h2>Before You Book the Demo.</h2>
     </div>
     <div class="faq-list">
-      <details class="faq-item reveal">
-        <summary>Do we need a separate Microsoft license? <span class="plus">+</span></summary>
-        <div class="faq-body">No. The full 8-stage pipeline runs on the Microsoft 365 subscription you already have — no extra per-user platform fees.</div>
+      <details>
+        <summary>What does Apptomax Recruit manage?</summary>
+        <p>Apptomax Recruit manages the complete recruitment journey from job position creation and candidate applications through interviews, selection and onboarding document collection.</p>
       </details>
-      <details class="faq-item reveal">
-        <summary>How many interview rounds can we set up? <span class="plus">+</span></summary>
-        <div class="faq-body">Up to five per position, each with its own name and interviewer — the app generates a private link for every round automatically.</div>
+      <details>
+        <summary>Can candidates apply through a link?</summary>
+        <p>Yes. HR creates a position and the system generates an application link that can be shared with candidates.</p>
       </details>
-      <details class="faq-item reveal">
-        <summary>Do interviewers need to log into the app? <span class="plus">+</span></summary>
-        <div class="faq-body">No. They get a secure link that opens a simple page for shortlisting, rejecting or leaving comments — no login required.</div>
+      <details>
+        <summary>Can HR manage applications from one place?</summary>
+        <p>Yes. HR can search and filter applications, view resumes, contact candidates, shortlist candidates and move candidates into the interview pipeline.</p>
       </details>
-      <details class="faq-item reveal">
-        <summary>How is the offer letter generated? <span class="plus">+</span></summary>
-        <div class="faq-body">HR enters the candidate's details and Annual CTC. Every salary component is calculated automatically and a formatted offer letter is ready to send.</div>
+      <details>
+        <summary>Can we create multiple interview rounds?</summary>
+        <p>Yes. HR can create multiple interview rounds for a candidate and assign different interviewers to each round.</p>
       </details>
-      <details class="faq-item reveal">
-        <summary>Where do joining documents get stored? <span class="plus">+</span></summary>
-        <div class="faq-body">Every upload is saved straight to your organisation's SharePoint, so access stays governed by your own Microsoft 365 permissions.</div>
+      <details>
+        <summary>Do interviewers need access to the HR application?</summary>
+        <p>No. Interviewers can receive a secure feedback link through email and submit their interview feedback without accessing the main HR application.</p>
       </details>
-      <details class="faq-item reveal">
-        <summary>How long until we're live? <span class="plus">+</span></summary>
-        <div class="faq-body">Typically 1–2 weeks, covering setup, branding, position configuration and a short training session for your HR team.</div>
+      <details>
+        <summary>Are candidates automatically notified about interviews?</summary>
+        <p>Yes. When an interview round is created, the system can automatically send the interview information to the candidate and interviewer.</p>
+      </details>
+      <details>
+        <summary>How are onboarding documents collected?</summary>
+        <p>After successful completion of the recruitment process, the candidate receives a secure document submission link and can upload the required documents digitally.</p>
+      </details>
+      <details>
+        <summary>What happens if a document is incorrect?</summary>
+        <p>HR can mark the specific document as pending. The candidate can then resubmit only the required document instead of uploading the complete document set again.</p>
+      </details>
+      <details>
+        <summary>Can HR download the complete candidate history?</summary>
+        <p>Yes. HR can generate a consolidated PDF containing candidate details, application information, interview rounds, feedback, document submission records and document history.</p>
+      </details>
+      <details>
+        <summary>Is the application built on Microsoft technology?</summary>
+        <p>Yes. Apptomax Recruit is built using Microsoft Power Platform technologies including Power Apps, Power Automate and SharePoint.</p>
       </details>
     </div>
   </div>
 </section>
 
+<!-- FINAL CTA -->
 <section>
-  <div class="final-cta reveal">
-    <h2>Get the app, watch the demo, or just log in.</h2>
-    <p>Three ways in — pick whichever gets you hiring faster.</p>
-    <div class="final-actions">
-      <a class="btn btn-primary" href="#pricing">Get the App — ₹899/mo</a>
-      <a class="btn btn-ghost" href="https://hrops.apptomax.com/demo">Start the Demo</a>
-      <a class="btn btn-ghost" href="https://hrops.apptomax.com/login">Login</a>
+  <div class="wrap">
+    <div class="final-cta">
+      <h2>Ready to Replace Spreadsheet-Based Recruitment?</h2>
+      <p>Give your HR team one connected platform for applications, interviews, candidate communication and onboarding documents.</p>
+      <div class="btns">
+        <a class="btn" style="background:#fff;color:var(--blue);" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
+        <a class="btn btn-outline-light" href="#flow">See How It Works</a>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-brand" style="max-width:320px;">
-        <div class="brand">
-          <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 4 L20 20 L14.5 20 L12 14.5 L9.5 20 L4 20 Z" fill="white"/></svg></div>
-          <div class="brand-text"><span class="name">HR Pre-onboarding</span><span class="tag">by Apptomax</span></div>
-        </div>
-        <p>Custom Microsoft Power Platform applications for hiring, onboarding and everyday business operations.</p>
+      <div>
+        <div class="foot-brand-row"><img src="https://lh3.googleusercontent.com/sitesv/AG8ngQXfLcFYdxv-NvC_Fv5grI9j2rQayLc_FVnRu07Bv0IfrDNwCUBBdzRBj6W1g32iDjkCfV8gborg52HzPxJr1xxVR8mR_u739OhoXUCYvIRPw2jshiMlnsDgz1zoQM2UbdZqBKnwwkkaF8g9utrimGQh4KdcPwMfltIkJk2GJDVNiaedRhWSwfDZrYw8=w16383" alt="Apptomax Recruit logo" class="logo-img"><div class="foot-brand">Apptomax Recruit</div></div>
+        <div class="foot-sub">End-to-End Recruitment & Pre-Onboarding Platform</div>
+        <p style="color:rgba(255,255,255,.5);font-size:13px;max-width:280px;">Custom Microsoft Power Platform applications for hiring, onboarding and everyday business operations.</p>
       </div>
-      <div class="foot-links">
-        <div class="foot-col">
-          <h4>Product</h4>
-          <a href="#pipeline">Pipeline</a>
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-        </div>
-        <div class="foot-col">
-          <h4>Get started</h4>
-          <a href="https://hrops.apptomax.com/demo">Start the Demo</a>
-          <a href="https://hrops.apptomax.com/login">Login</a>
-          <a href="#pricing">Get the App</a>
-        </div>
-        <div class="foot-col">
-          <h4>Contact</h4>
-          <a href="tel:+918655406244">+91 86554 06244</a>
-          <a href="#">Turbhe, Navi Mumbai</a>
-        </div>
+      <div class="foot-col">
+        <h5>Product</h5>
+        <a href="#flow">Recruitment Flow</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h5>Get Started</h5>
+        <a href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
+        <a href="https://hrops.apptomax.com/login">Login</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="tel:+918655406244">+91 86554 06244</a>
+        <a href="#">Turbhe, Navi Mumbai</a>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Apptomax. HR Pre-onboarding (ATS) — hrops.apptomax.com</span>
-      <span>Microsoft Certified Developer · Power Apps &amp; Power Automate</span>
+      <span>© 2026 Apptomax. Apptomax Recruit — hrops.apptomax.com</span>
+      <span>Microsoft Certified Developer · Power Apps & Power Automate</span>
     </div>
   </div>
 </footer>
-
-<script>
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:0.15});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-</script>
 
 </body>
 </html>
