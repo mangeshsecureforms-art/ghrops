@@ -319,7 +319,20 @@
   .foot-col h5{color:#fff;font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px;}
   .foot-col a{display:block;color:rgba(255,255,255,.7);margin-bottom:10px;font-size:14px;}
   .foot-col a:hover{color:#fff;}
-  .foot-bottom{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px;color:rgba(255,255,255,.5);}
+  .foot-bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:13px;color:rgba(255,255,255,.5);}
+  .foot-bottom .foot-legal-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:7px 14px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.2);
+    color:rgba(255,255,255,.75);
+    font-size:12.5px;
+    font-weight:600;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .foot-bottom .foot-legal-btn:hover{border-color:rgba(255,255,255,.5);color:#fff;background:rgba(255,255,255,.06);}
 
   ::selection{background:rgba(42,92,219,.2);}
 </style>
@@ -731,7 +744,10 @@
     </div>
     <div class="foot-bottom">
       <span>© 2026 Apptomax. Apptomax Recruit — hrops.apptomax.com</span>
-      <span>Microsoft Certified Developer · Power Apps & Power Automate</span>
+      <span style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <a class="foot-legal-btn" href="https://hrops.apptomax.com/legal-policies">Legal & Policies</a>
+        <span>Microsoft Certified Developer · Power Apps & Power Automate</span>
+      </span>
     </div>
   </div>
 </footer>
