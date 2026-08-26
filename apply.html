@@ -715,6 +715,66 @@
 
 
         /* =================================
+           SUFFIX INPUT (Expected Salary)
+        ================================= */
+
+        .suffix-field {
+
+            position: relative;
+
+        }
+
+
+        .suffix-field input {
+
+            padding-right: 68px;
+
+        }
+
+
+        .suffix-field input::-webkit-outer-spin-button,
+        .suffix-field input::-webkit-inner-spin-button {
+
+            -webkit-appearance: none;
+
+            margin: 0;
+
+        }
+
+
+        .suffix-field input[type="number"] {
+
+            -moz-appearance: textfield;
+
+        }
+
+
+        .suffix-label {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-family: var(--font-mono);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.04em;
+
+            color: var(--slate-light);
+
+            pointer-events: none;
+
+        }
+
+
+        /* =================================
            FILE UPLOAD
         ================================= */
 
@@ -1479,7 +1539,7 @@
 
 
 
-            <!-- EXPECTED SALARY -->
+            <!-- EXPECTED SALARY (numeric only, LPA / Yearly suffix shown, sent as before) -->
 
             <div class="form-group">
 
@@ -1489,10 +1549,19 @@
                 </label>
 
 
-                <input
-                    type="text"
-                    id="expectedSalary"
-                    placeholder="6 LPA">
+                <div class="suffix-field">
+
+                    <input
+                        type="number"
+                        id="expectedSalary"
+                        placeholder="6"
+                        min="0"
+                        step="0.1"
+                        inputmode="decimal">
+
+                    <span class="suffix-label">LPA / Yearly</span>
+
+                </div>
 
 
             </div>
@@ -1503,21 +1572,12 @@
 
             <div class="form-group">
 
-
                 <label>
-
                     Skills
                     <span class="required">*</span>
-
                 </label>
 
-
-                <textarea
-                    id="skills"
-                    placeholder="Power Apps, Power Automate, SharePoint"
-                    required>
-                </textarea>
-
+                <textarea id="skills" placeholder="Power Apps, Power Automate, SharePoint" required></textarea>
 
             </div>
 
@@ -2173,6 +2233,22 @@ document.getElementById(
                 );
 
 
+            // EXPECTED SALARY — user enters number only,
+            // we still send it in the same "<number> LPA" text
+            // format the Power Automate flow already expects.
+
+            const expectedSalaryRaw =
+                document.getElementById(
+                    "expectedSalary"
+                ).value.trim();
+
+
+            const expectedSalaryFormatted =
+                expectedSalaryRaw === ""
+                    ? ""
+                    : expectedSalaryRaw ;
+
+
             // APPLICATION DATA
 
             const applicationData = {
@@ -2257,9 +2333,7 @@ document.getElementById(
 
 
                 expectedSalary:
-                    document.getElementById(
-                        "expectedSalary"
-                    ).value.trim(),
+                    expectedSalaryFormatted,
 
 
                 noticePeriod:
