@@ -1,0 +1,2563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Job Opportunity</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        :root {
+
+            --ink: #10182B;
+            --navy: #1B2A4A;
+            --signal: #2F6FED;
+            --signal-dark: #1D4FBE;
+            --signal-soft: #EAF1FF;
+            --amber: #E8A33D;
+            --mist: #F3F5F9;
+            --paper: #FFFFFF;
+            --line: #E2E6EE;
+            --slate: #5B6472;
+            --slate-light: #8A93A3;
+            --success: #15803D;
+            --success-soft: #EAF7EF;
+            --danger: #C0362C;
+            --danger-soft: #FCEEEC;
+
+            --font-display: 'Space Grotesk', 'Arial', sans-serif;
+            --font-body: 'Inter', 'Helvetica', sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --radius-sm: 9px;
+
+            --shadow-card: 0 1px 2px rgba(16, 24, 43, 0.04), 0 16px 40px -16px rgba(16, 24, 43, 0.16);
+            --shadow-modal: 0 24px 70px -20px rgba(16, 24, 43, 0.45);
+
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: var(--font-body);
+
+            background:
+                radial-gradient(1100px 500px at 15% -10%, #EEF3FF 0%, transparent 55%),
+                radial-gradient(900px 500px at 105% 10%, #FBF3E7 0%, transparent 50%),
+                var(--mist);
+
+            background-attachment: fixed;
+
+            color: var(--ink);
+
+            -webkit-font-smoothing: antialiased;
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 780px;
+
+            margin: 64px auto;
+
+            padding: 20px;
+
+        }
+
+
+        /* =================================
+           JOB CARD
+        ================================= */
+
+        .card {
+
+            background: var(--paper);
+
+            border-radius: var(--radius-lg);
+
+            border: 1px solid var(--line);
+
+            padding: 44px 44px 40px;
+
+            box-shadow: var(--shadow-card);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+        .card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            right: 0;
+
+            height: 5px;
+
+            background: linear-gradient(90deg, var(--navy) 0%, var(--signal) 55%, var(--amber) 100%);
+
+        }
+
+
+        .eyebrow {
+
+            font-family: var(--font-mono);
+
+            font-size: 11.5px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.14em;
+
+            text-transform: uppercase;
+
+            color: var(--signal);
+
+            margin: 4px 0 22px;
+
+        }
+
+
+        .company {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .logo {
+
+            width: 60px;
+
+            height: 60px;
+
+            object-fit: contain;
+
+            border-radius: 12px;
+
+            border: 1px solid var(--line);
+
+            padding: 6px;
+
+            background: var(--paper);
+
+            flex-shrink: 0;
+
+        }
+
+
+        .company-name {
+
+            font-family: var(--font-display);
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            color: var(--slate);
+
+            letter-spacing: 0.01em;
+
+        }
+
+
+        .job-title {
+
+            font-family: var(--font-display);
+
+            font-size: 34px;
+
+            font-weight: 700;
+
+            line-height: 1.2;
+
+            margin: 6px 0 22px;
+
+            color: var(--ink);
+
+            letter-spacing: -0.01em;
+
+        }
+
+
+        .tags {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+        }
+
+
+        .tag {
+
+            font-family: var(--font-mono);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.04em;
+
+            text-transform: uppercase;
+
+            color: var(--navy);
+
+            background: var(--signal-soft);
+
+            border: 1px solid #D9E6FF;
+
+            padding: 8px 13px;
+
+            border-radius: 100px;
+
+        }
+
+
+        .tag:empty {
+
+            display: none;
+
+        }
+
+
+        .section {
+
+            margin-top: 38px;
+
+            padding-top: 30px;
+
+            border-top: 1px solid var(--line);
+
+        }
+
+
+        .section h2 {
+
+            font-family: var(--font-display);
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            margin: 0 0 14px;
+
+            color: var(--ink);
+
+        }
+
+
+        .description {
+
+            line-height: 1.75;
+
+            white-space: pre-line;
+
+            color: #333B4D;
+
+            font-size: 15.5px;
+
+        }
+
+
+        .apply-btn {
+
+            width: 100%;
+
+            margin-top: 34px;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: var(--radius-sm);
+
+            background: linear-gradient(135deg, var(--signal) 0%, var(--signal-dark) 100%);
+
+            color: white;
+
+            font-family: var(--font-body);
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.01em;
+
+            cursor: pointer;
+
+            box-shadow: 0 10px 24px -8px rgba(47, 111, 237, 0.55);
+
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+
+        }
+
+
+        .apply-btn:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow: 0 14px 28px -8px rgba(47, 111, 237, 0.6);
+
+        }
+
+
+        .apply-btn:active {
+
+            transform: translateY(0);
+
+        }
+
+
+        .loading,
+        .error {
+
+            text-align: center;
+
+            padding: 90px 20px;
+
+            font-family: var(--font-body);
+
+            font-size: 16px;
+
+            color: var(--slate);
+
+        }
+
+
+        .loading::before {
+
+            content: "";
+
+            display: block;
+
+            width: 28px;
+
+            height: 28px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            border: 3px solid var(--line);
+
+            border-top-color: var(--signal);
+
+            animation: spin 0.8s linear infinite;
+
+        }
+
+
+        @keyframes spin {
+
+            to { transform: rotate(360deg); }
+
+        }
+
+
+        .error {
+
+            color: var(--danger);
+
+            font-weight: 500;
+
+        }
+
+
+        .hidden {
+
+            display: none !important;
+
+        }
+
+
+        /* =================================
+           MODAL
+        ================================= */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(16, 24, 43, 0.6);
+
+            backdrop-filter: blur(3px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 20px;
+
+            z-index: 1000;
+
+            animation: fadeIn 0.18s ease;
+
+        }
+
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; }
+
+            to { opacity: 1; }
+
+        }
+
+
+        .modal-content {
+
+            width: 100%;
+
+            max-width: 620px;
+
+            max-height: 90vh;
+
+            overflow-y: auto;
+
+            background: var(--paper);
+
+            border-radius: var(--radius-lg);
+
+            padding: 0;
+
+            position: relative;
+
+            box-shadow: var(--shadow-modal);
+
+            animation: modalPop 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+        }
+
+
+        @keyframes modalPop {
+
+            from { opacity: 0; transform: translateY(14px) scale(0.98); }
+
+            to { opacity: 1; transform: translateY(0) scale(1); }
+
+        }
+
+
+        .modal-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 28px 32px 0;
+
+            position: sticky;
+
+            top: 0;
+
+            background: var(--paper);
+
+            z-index: 2;
+
+        }
+
+
+        .modal-header h2 {
+
+            margin: 0;
+
+            font-family: var(--font-display);
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            color: var(--ink);
+
+        }
+
+
+        .close-btn {
+
+            border: none;
+
+            background: var(--mist);
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            font-size: 20px;
+
+            line-height: 1;
+
+            cursor: pointer;
+
+            color: var(--slate);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            transition: background 0.15s ease, color 0.15s ease;
+
+        }
+
+
+        .close-btn:hover {
+
+            background: var(--danger-soft);
+
+            color: var(--danger);
+
+        }
+
+
+        .modal-body {
+
+            padding: 20px 32px 32px;
+
+        }
+
+
+        .job-reference {
+
+            font-family: var(--font-mono);
+
+            font-size: 12.5px;
+
+            color: var(--slate);
+
+            background: var(--mist);
+
+            border: 1px dashed #C9D1DE;
+
+            padding: 13px 16px;
+
+            border-radius: var(--radius-sm);
+
+            margin-bottom: 26px;
+
+            letter-spacing: 0.01em;
+
+        }
+
+
+        .job-reference strong {
+
+            font-family: var(--font-display);
+
+            font-size: 14.5px;
+
+            color: var(--ink);
+
+            display: block;
+
+            margin-bottom: 3px;
+
+        }
+
+
+        .form-row {
+
+            display: flex;
+
+            gap: 15px;
+
+        }
+
+
+        .form-group {
+
+            margin-bottom: 18px;
+
+            flex: 1;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-family: var(--font-mono);
+
+            font-size: 11.5px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.06em;
+
+            text-transform: uppercase;
+
+            color: var(--slate);
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border: 1.5px solid var(--line);
+
+            border-radius: var(--radius-sm);
+
+            font-size: 15px;
+
+            font-family: var(--font-body);
+
+            color: var(--ink);
+
+            background: var(--paper);
+
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+        }
+
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+
+            color: var(--slate-light);
+
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            outline: none;
+
+            border-color: var(--signal);
+
+            box-shadow: 0 0 0 4px var(--signal-soft);
+
+        }
+
+
+        .form-group input[readonly] {
+
+            background: var(--mist);
+
+            color: var(--slate);
+
+            cursor: not-allowed;
+
+        }
+
+
+        .form-group textarea {
+
+            min-height: 90px;
+
+            resize: vertical;
+
+        }
+
+
+        .required {
+
+            color: var(--danger);
+
+        }
+
+
+        /* =================================
+           SUFFIX INPUT (Expected Salary)
+        ================================= */
+
+        .suffix-field {
+
+            position: relative;
+
+        }
+
+
+        .suffix-field input {
+
+            padding-right: 68px;
+
+        }
+
+
+        .suffix-field input::-webkit-outer-spin-button,
+        .suffix-field input::-webkit-inner-spin-button {
+
+            -webkit-appearance: none;
+
+            margin: 0;
+
+        }
+
+
+        .suffix-field input[type="number"] {
+
+            -moz-appearance: textfield;
+
+        }
+
+
+        .suffix-label {
+
+            position: absolute;
+
+            right: 14px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-family: var(--font-mono);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: 0.04em;
+
+            color: var(--slate-light);
+
+            pointer-events: none;
+
+        }
+
+
+        /* =================================
+           FILE UPLOAD
+        ================================= */
+
+        .file-box {
+
+            display: block;
+
+            border: 1.5px dashed #C9D1DE;
+
+            border-radius: var(--radius-sm);
+
+            padding: 22px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            background: var(--mist);
+
+            transition: border-color 0.15s ease, background 0.15s ease;
+
+        }
+
+
+        .file-box:hover {
+
+            border-color: var(--signal);
+
+            background: var(--signal-soft);
+
+        }
+
+
+        .file-box input {
+
+            display: none;
+
+        }
+
+
+        .file-box strong {
+
+            display: block;
+
+            font-size: 14.5px;
+
+            color: var(--ink);
+
+            font-weight: 600;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .file-box > div {
+
+            font-size: 12.5px;
+
+            color: var(--slate-light);
+
+        }
+
+
+        .file-name {
+
+            margin-top: 10px;
+
+            font-family: var(--font-mono);
+
+            font-size: 12.5px;
+
+            color: var(--signal-dark);
+
+            font-weight: 600;
+
+        }
+
+
+        /* =================================
+           CONSENT
+        ================================= */
+
+        .consent {
+
+            display: flex;
+
+            gap: 11px;
+
+            align-items: flex-start;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+
+            color: var(--slate);
+
+            margin: 22px 0 24px;
+
+            cursor: pointer;
+
+        }
+
+
+        .consent input {
+
+            margin-top: 3px;
+
+            width: 16px;
+
+            height: 16px;
+
+            accent-color: var(--signal);
+
+            flex-shrink: 0;
+
+            cursor: pointer;
+
+        }
+
+
+        /* =================================
+           SUBMIT
+        ================================= */
+
+        .submit-btn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: var(--radius-sm);
+
+            background: linear-gradient(135deg, var(--signal) 0%, var(--signal-dark) 100%);
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            font-family: var(--font-body);
+
+            cursor: pointer;
+
+            box-shadow: 0 10px 24px -8px rgba(47, 111, 237, 0.5);
+
+            transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+
+        }
+
+
+        .submit-btn:hover:not(:disabled) {
+
+            transform: translateY(-1px);
+
+        }
+
+
+        .submit-btn:disabled {
+
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            box-shadow: none;
+
+        }
+
+
+        .form-message {
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            font-size: 13.5px;
+
+            font-weight: 500;
+
+        }
+
+
+        .success {
+
+            color: var(--success);
+
+        }
+
+
+        .form-error {
+
+            color: var(--danger);
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .container {
+
+                margin: 0 auto;
+
+                padding: 0;
+
+            }
+
+
+            .card {
+
+                border-radius: 0;
+
+                padding: 30px 22px 32px;
+
+                border-left: none;
+
+                border-right: none;
+
+                min-height: 100vh;
+
+            }
+
+
+            .job-title {
+
+                font-size: 26px;
+
+            }
+
+
+            .logo {
+
+                width: 50px;
+
+                height: 50px;
+
+            }
+
+
+            .form-row {
+
+                flex-direction: column;
+
+                gap: 0;
+
+            }
+
+
+            .modal {
+
+                padding: 0;
+
+                align-items: flex-end;
+
+            }
+
+
+            .modal-content {
+
+                max-width: 100%;
+
+                max-height: 92vh;
+
+                border-radius: 20px 20px 0 0;
+
+            }
+
+
+            .modal-header {
+
+                padding: 22px 22px 0;
+
+            }
+
+
+            .modal-body {
+
+                padding: 16px 22px 26px;
+
+            }
+
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *, *::before, *::after {
+
+                animation-duration: 0.001ms !important;
+
+                transition-duration: 0.001ms !important;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- LOADING -->
+
+    <div
+        id="loading"
+        class="loading">
+
+        Loading job details...
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div
+        id="error"
+        class="error hidden">
+    </div>
+
+
+    <!-- JOB -->
+
+    <div
+        id="jobCard"
+        class="card hidden">
+
+
+        <div class="eyebrow">
+            Open position
+        </div>
+
+
+        <div class="company">
+
+
+            <img
+                id="companyLogo"
+                class="logo"
+                src=""
+                alt="Company Logo">
+
+
+            <div>
+
+                <div
+                    id="companyName"
+                    class="company-name">
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <h1
+            id="jobTitle"
+            class="job-title">
+        </h1>
+
+
+        <div class="tags">
+
+
+            <span
+                id="department"
+                class="tag">
+            </span>
+
+
+            <span
+                id="location"
+                class="tag">
+            </span>
+
+
+            <span
+                id="experience"
+                class="tag">
+            </span>
+
+
+            <span
+                id="jobType"
+                class="tag">
+            </span>
+
+
+        </div>
+
+
+        <div class="section">
+
+
+            <h2>
+                Job Description
+            </h2>
+
+
+            <div
+                id="description"
+                class="description">
+            </div>
+
+
+        </div>
+
+
+        <button
+            id="applyButton"
+            class="apply-btn">
+
+            Apply Now
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =================================================
+     APPLICATION MODAL
+================================================= -->
+
+<div
+    id="applicationModal"
+    class="modal hidden">
+
+
+    <div class="modal-content">
+
+
+        <div class="modal-header">
+
+
+            <h2>
+                Apply for this position
+            </h2>
+
+
+            <button
+                id="closeModal"
+                class="close-btn"
+                aria-label="Close">
+
+                ×
+
+            </button>
+
+
+        </div>
+
+
+        <div class="modal-body">
+
+
+        <div
+            class="job-reference">
+
+
+            Applying for
+
+            <strong
+                id="applicationJobTitle">
+            </strong>
+
+
+            <span
+                id="applicationCompany">
+            </span>
+
+
+        </div>
+
+
+
+        <!-- APPLICATION FORM -->
+
+        <form
+            id="applicationForm">
+
+
+            <!-- POSITION -->
+
+            <div class="form-group">
+
+
+                <label>
+
+                    Position
+                    <span class="required">*</span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="position"
+                    readonly
+                    required>
+
+
+            </div>
+
+
+
+            <!-- FIRST / LAST NAME -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        First Name
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="firstName"
+                        placeholder="Aarav"
+                        required>
+
+
+                </div>
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        Last Name
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="lastName"
+                        placeholder="Sharma"
+                        required>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- EMAIL / MOBILE -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        Email
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="you@example.com"
+                        required>
+
+
+                </div>
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        Mobile
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        placeholder="98765 43210"
+                        required>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+
+                <label>
+
+                    Current Location
+                    <span class="required">*</span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="currentLocation"
+                    placeholder="Mumbai"
+                    required>
+
+
+            </div>
+
+
+
+            <!-- EXPERIENCE / NOTICE -->
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        Total Experience
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="experienceInput"
+                        placeholder="3 Years"
+                        required>
+
+
+                </div>
+
+
+                <div class="form-group">
+
+
+                    <label>
+
+                        Notice Period
+                        <span class="required">*</span>
+
+                    </label>
+
+
+                    <select
+                        id="noticePeriod"
+                        required>
+
+
+                        <option value="">
+                            Select
+                        </option>
+
+
+                        <option value="Immediate">
+                            Immediate
+                        </option>
+
+
+                        <option value="15 Days">
+                            15 Days
+                        </option>
+
+
+                        <option value="30 Days">
+                            30 Days
+                        </option>
+
+
+                        <option value="60 Days">
+                            60 Days
+                        </option>
+
+
+                        <option value="90 Days">
+                            90 Days
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CURRENT COMPANY -->
+
+            <div class="form-group">
+
+
+                <label>
+                    Current Company
+                </label>
+
+
+                <input
+                    type="text"
+                    id="currentCompany">
+
+
+            </div>
+
+
+
+            <!-- CURRENT DESIGNATION -->
+
+            <div class="form-group">
+
+
+                <label>
+                    Current Designation
+                </label>
+
+
+                <input
+                    type="text"
+                    id="currentDesignation">
+
+
+            </div>
+
+
+
+            <!-- EXPECTED SALARY (numeric only, LPA / Yearly suffix shown, sent as before) -->
+
+            <div class="form-group">
+
+
+                <label>
+                    Expected Salary
+                </label>
+
+
+                <div class="suffix-field">
+
+                    <input
+                        type="number"
+                        id="expectedSalary"
+                        placeholder="6"
+                        min="0"
+                        step="0.1"
+                        inputmode="decimal">
+
+                    <span class="suffix-label">LPA / Yearly</span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- SKILLS -->
+
+            <div class="form-group">
+
+                <label>
+                    Skills
+                    <span class="required">*</span>
+                </label>
+
+                <textarea id="skills" placeholder="Power Apps, Power Automate, SharePoint" required></textarea>
+
+            </div>
+
+
+
+            <!-- RESUME -->
+
+            <div class="form-group">
+
+
+                <label>
+
+                    Resume
+                    <span class="required">*</span>
+
+                </label>
+
+
+                <label class="file-box">
+
+
+                    <input
+                        type="file"
+                        id="resume"
+                        accept=".pdf,application/pdf"
+                        required>
+
+
+                    <strong>
+                        Click to upload resume
+                    </strong>
+
+
+                    <div>
+                        PDF only — Maximum 5 MB
+                    </div>
+
+
+                    <div
+                        id="fileName"
+                        class="file-name">
+                    </div>
+
+
+                </label>
+
+
+            </div>
+
+
+
+            <!-- CONSENT -->
+
+            <label class="consent">
+
+
+                <input
+                    type="checkbox"
+                    id="consent"
+                    required>
+
+
+                <span>
+
+                    I confirm that the information
+                    provided is accurate and I agree
+                    to the processing of my application
+                    for this job position.
+
+                </span>
+
+
+            </label>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                id="submitButton"
+                class="submit-btn">
+
+                Submit Application
+
+            </button>
+
+
+            <div
+                id="formMessage"
+                class="form-message">
+            </div>
+
+
+        </form>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+// =====================================================
+// GET JOB FLOW
+// =====================================================
+
+const POWER_AUTOMATE_URL =
+    "https://2ee217396b6fe0ffb476c1e33c828f.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/30/workflows/935adda39ed741ac8707787a82fa61c8/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=IG8MDN_b4I3l_fJ9ok30j_x7-55-6FBEzh84RA7tH5s";
+
+
+// =====================================================
+// SUBMIT APPLICATION FLOW
+// =====================================================
+
+const SUBMIT_APPLICATION_URL =
+    "https://2ee217396b6fe0ffb476c1e33c828f.d4.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/27/workflows/c4acfc1956aa43778978d6f9c330f19a/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=I8Yo8XRCtReXIGIDVtXozL0APqAq0POx8_SFEbCS-l8";
+
+
+// =====================================================
+// READ JOB ID
+// =====================================================
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const jobToken =
+    urlParams.get("job");
+
+
+console.log(
+    "Job Token:",
+    jobToken
+);
+
+
+// =====================================================
+// VALIDATE JOB ID
+// =====================================================
+
+if (!jobToken || jobToken.trim() === "") {
+
+    showError(
+        "This job application is not valid."
+    );
+
+} else {
+
+    getJobDetails();
+
+}
+
+
+// =====================================================
+// GET JOB DETAILS
+// =====================================================
+
+async function getJobDetails() {
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                POWER_AUTOMATE_URL,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify({
+
+                            jobToken:
+                                jobToken
+
+                        })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load job."
+            );
+
+        }
+
+
+        const job =
+            await response.json();
+
+
+        console.log(
+            "Job Data:",
+            job
+        );
+
+
+        // SAVE COMPLETE JOB
+
+        window.currentJob =
+            job;
+
+
+        // COMPANY
+
+        document.getElementById(
+            "companyName"
+        ).textContent =
+            job.companyName ||
+            "Company";
+
+
+        // DESIGNATION
+
+        document.getElementById(
+            "jobTitle"
+        ).textContent =
+            job.designation ||
+            "Job Position";
+
+
+        // DEPARTMENT
+
+        document.getElementById(
+            "department"
+        ).textContent =
+            job.department ||
+            "";
+
+
+        // LOCATION
+
+        document.getElementById(
+            "location"
+        ).textContent =
+            job.location ||
+            "";
+
+
+        // EXPERIENCE
+
+        document.getElementById(
+            "experience"
+        ).textContent =
+            job.experience ||
+            "";
+
+
+        // JOB TYPE
+
+        document.getElementById(
+            "jobType"
+        ).textContent =
+            job.jobType ||
+            "";
+
+
+        // DESCRIPTION
+
+        document.getElementById(
+            "description"
+        ).textContent =
+            job.description ||
+            "No job description available.";
+
+
+        // LOGO
+
+        const logo =
+            document.getElementById(
+                "companyLogo"
+            );
+
+
+        if (job.companyLogo) {
+
+            logo.src =
+                job.companyLogo;
+
+            logo.style.display =
+                "block";
+
+        } else {
+
+            logo.style.display =
+                "none";
+
+        }
+
+
+        // SHOW JOB
+
+        document.getElementById(
+            "loading"
+        ).classList.add(
+            "hidden"
+        );
+
+
+        document.getElementById(
+            "jobCard"
+        ).classList.remove(
+            "hidden"
+        );
+
+
+    } catch (error) {
+
+
+        console.error(
+            error
+        );
+
+
+        showError(
+            "This job application is not valid or the position has been closed."
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// OPEN APPLICATION
+// =====================================================
+
+document.getElementById(
+    "applyButton"
+).addEventListener(
+    "click",
+    function() {
+
+
+        document.getElementById(
+            "applicationJobTitle"
+        ).textContent =
+            window.currentJob.designation;
+
+
+        document.getElementById(
+            "applicationCompany"
+        ).textContent =
+            window.currentJob.companyName;
+
+
+        document.getElementById(
+            "position"
+        ).value =
+            window.currentJob.designation ||
+            "";
+
+
+        document.getElementById(
+            "applicationModal"
+        ).classList.remove(
+            "hidden"
+        );
+
+
+        document.body.style.overflow =
+            "hidden";
+
+    }
+);
+
+
+// =====================================================
+// CLOSE APPLICATION
+// =====================================================
+
+document.getElementById(
+    "closeModal"
+).addEventListener(
+    "click",
+    closeApplication
+);
+
+
+function closeApplication() {
+
+
+    document.getElementById(
+        "applicationModal"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    document.body.style.overflow =
+        "auto";
+
+}
+
+
+// =====================================================
+// RESUME VALIDATION
+// =====================================================
+
+document.getElementById(
+    "resume"
+).addEventListener(
+    "change",
+    function() {
+
+
+        const file =
+            this.files[0];
+
+
+        const fileName =
+            document.getElementById(
+                "fileName"
+            );
+
+
+        if (!file) {
+
+            fileName.textContent =
+                "";
+
+            return;
+
+        }
+
+
+        // PDF ONLY
+
+        const isPDF =
+            file.type ===
+                "application/pdf" ||
+            file.name
+                .toLowerCase()
+                .endsWith(".pdf");
+
+
+        if (!isPDF) {
+
+
+            alert(
+                "Only PDF files are allowed."
+            );
+
+
+            this.value =
+                "";
+
+
+            fileName.textContent =
+                "";
+
+
+            return;
+
+        }
+
+
+        // 5 MB
+
+        const maxSize =
+            5 *
+            1024 *
+            1024;
+
+
+        if (file.size >
+            maxSize) {
+
+
+            alert(
+                "Resume must be smaller than 5 MB."
+            );
+
+
+            this.value =
+                "";
+
+
+            fileName.textContent =
+                "";
+
+
+            return;
+
+        }
+
+
+        fileName.textContent =
+            file.name +
+            " (" +
+            formatFileSize(
+                file.size
+            ) +
+            ")";
+
+
+    }
+);
+
+
+// =====================================================
+// FILE SIZE
+// =====================================================
+
+function formatFileSize(bytes) {
+
+
+    if (bytes <
+        1024) {
+
+        return bytes +
+            " B";
+
+    }
+
+
+    if (bytes <
+        1024 * 1024) {
+
+        return (
+            bytes / 1024
+        ).toFixed(1) +
+        " KB";
+
+    }
+
+
+    return (
+        bytes /
+        (1024 * 1024)
+    ).toFixed(1) +
+    " MB";
+
+}
+
+
+// =====================================================
+// SUBMIT APPLICATION
+// =====================================================
+
+document.getElementById(
+    "applicationForm"
+).addEventListener(
+    "submit",
+    async function(event) {
+
+
+        event.preventDefault();
+
+
+        const submitButton =
+            document.getElementById(
+                "submitButton"
+            );
+
+
+        const message =
+            document.getElementById(
+                "formMessage"
+            );
+
+
+        const resume =
+            document.getElementById(
+                "resume"
+            ).files[0];
+
+
+        if (!resume) {
+
+
+            message.textContent =
+                "Please upload your resume.";
+
+
+            message.className =
+                "form-message form-error";
+
+
+            return;
+
+        }
+
+
+        // PDF CHECK
+
+        const isPDF =
+            resume.type ===
+                "application/pdf" ||
+            resume.name
+                .toLowerCase()
+                .endsWith(".pdf");
+
+
+        if (!isPDF) {
+
+
+            message.textContent =
+                "Only PDF resumes are allowed.";
+
+
+            message.className =
+                "form-message form-error";
+
+
+            return;
+
+        }
+
+
+        // DISABLE
+
+        submitButton.disabled =
+            true;
+
+
+        submitButton.textContent =
+            "Submitting...";
+
+
+        message.textContent =
+            "";
+
+
+        try {
+
+
+            // CONVERT PDF
+
+            const resumeBase64 =
+                await fileToBase64(
+                    resume
+                );
+
+
+            // EXPECTED SALARY — user enters number only,
+            // we still send it in the same "<number> LPA" text
+            // format the Power Automate flow already expects.
+
+            const expectedSalaryRaw =
+                document.getElementById(
+                    "expectedSalary"
+                ).value.trim();
+
+
+            const expectedSalaryFormatted =
+                expectedSalaryRaw === ""
+                    ? ""
+                    : expectedSalaryRaw ;
+
+
+            // APPLICATION DATA
+
+            const applicationData = {
+
+
+                // JOB
+
+                jobToken:
+                    jobToken,
+
+
+                // POSITION
+
+                position:
+                    document.getElementById(
+                        "position"
+                    ).value.trim(),
+
+
+                // JOB OWNER
+
+                createdByName:
+                    window.currentJob
+                        .createdByName ||
+                    "",
+
+
+                createdByEmail:
+                    window.currentJob
+                        .createdByEmail ||
+                    "",
+
+
+                // CANDIDATE
+
+                firstName:
+                    document.getElementById(
+                        "firstName"
+                    ).value.trim(),
+
+
+                lastName:
+                    document.getElementById(
+                        "lastName"
+                    ).value.trim(),
+
+
+                email:
+                    document.getElementById(
+                        "email"
+                    ).value.trim(),
+
+
+                mobile:
+                    document.getElementById(
+                        "mobile"
+                    ).value.trim(),
+
+
+                currentLocation:
+                    document.getElementById(
+                        "currentLocation"
+                    ).value.trim(),
+
+
+                experience:
+                    document.getElementById(
+                        "experienceInput"
+                    ).value.trim(),
+
+
+                currentCompany:
+                    document.getElementById(
+                        "currentCompany"
+                    ).value.trim(),
+
+
+                currentDesignation:
+                    document.getElementById(
+                        "currentDesignation"
+                    ).value.trim(),
+
+
+                expectedSalary:
+                    expectedSalaryFormatted,
+
+
+                noticePeriod:
+                    document.getElementById(
+                        "noticePeriod"
+                    ).value,
+
+
+                skills:
+                    document.getElementById(
+                        "skills"
+                    ).value.trim(),
+
+
+                // RESUME
+
+                resumeFileName:
+                    resume.name,
+
+
+                resumeContent:
+                    resumeBase64
+
+            };
+
+
+            console.log(
+                "Application Data:",
+                applicationData
+            );
+
+
+            // SEND
+
+            const response =
+                await fetch(
+                    SUBMIT_APPLICATION_URL,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify(
+                                applicationData
+                            )
+
+                    }
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Application submission failed."
+                );
+
+            }
+
+
+            // RESPONSE
+
+            let result = {};
+
+            try {
+
+                result =
+                    await response.json();
+
+            } catch {
+
+                result = {};
+
+            }
+
+
+            console.log(
+                "Application Result:",
+                result
+            );
+
+
+            // SUCCESS
+
+            message.textContent =
+                "Application submitted successfully.";
+
+
+            message.className =
+                "form-message success";
+
+
+            submitButton.textContent =
+                "Application Submitted";
+
+
+            submitButton.disabled =
+                true;
+
+
+        } catch (error) {
+
+
+            console.error(
+                error
+            );
+
+
+            message.textContent =
+                "Unable to submit your application. Please try again.";
+
+
+            message.className =
+                "form-message form-error";
+
+
+            submitButton.disabled =
+                false;
+
+
+            submitButton.textContent =
+                "Submit Application";
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// FILE → BASE64
+// =====================================================
+
+function fileToBase64(file) {
+
+
+    return new Promise(
+        function(resolve, reject) {
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function() {
+
+
+                    const result =
+                        reader.result;
+
+
+                    const base64 =
+                        result.split(
+                            ","
+                        )[1];
+
+
+                    resolve(
+                        base64
+                    );
+
+                };
+
+
+            reader.onerror =
+                function(error) {
+
+                    reject(
+                        error
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// ERROR
+// =====================================================
+
+function showError(message) {
+
+
+    document.getElementById(
+        "loading"
+    ).classList.add(
+        "hidden"
+    );
+
+
+    const error =
+        document.getElementById(
+            "error"
+        );
+
+
+    error.textContent =
+        message;
+
+
+    error.classList.remove(
+        "hidden"
+    );
+
+}
+
+</script>
+
+
+</body>
+
+</html>
