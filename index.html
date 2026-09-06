@@ -174,7 +174,8 @@
   @media(max-width:960px){.hero-grid{grid-template-columns:1fr;}}
   .hero h1{font-size:clamp(32px,4.6vw,52px);}
   .hero .lede{font-size:18px;max-width:560px;}
-  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0 18px;}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px;margin:28px 0 6px;}
+  .hero-trial-note{font-size:13px;color:var(--muted);margin:0 0 18px;}
   .hero-note{font-size:13.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;}
   .hero-note .dot{color:var(--line);}
   .hero-visual{
@@ -380,6 +381,7 @@
   .price-list li::before{content:"✓";color:var(--stage-8);font-weight:800;}
   .price-card .btn{width:100%;justify-content:center;}
   .price-card .btn-ghost{margin-top:10px;}
+  .price-trial-note{text-align:center;font-size:12.5px;color:var(--muted);margin:10px 0 0;}
   .price-secure-note{display:flex;align-items:center;gap:8px;justify-content:center;font-size:12.5px;color:var(--muted);margin-top:14px;}
   @media(max-width:480px){.price-card{padding:26px 20px;}.price-value{font-size:36px;}}
 
@@ -454,7 +456,7 @@
     </div>
     <div class="nav-cta">
       <a class="btn btn-ghost" href="https://hrops.apptomax.com/login">Login</a>
-      <a class="btn btn-primary" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
+      <a class="btn btn-primary" href="https://hrops.apptomax.com/freetrial">Start 7-Day Free Trial</a>
     </div>
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
       <span class="icon-open">☰</span><span class="icon-close">✕</span>
@@ -469,7 +471,7 @@
       <a class="mobile-link" href="#faq" style="border-bottom:none;">FAQs</a>
       <div class="mobile-nav-cta">
         <a class="btn btn-ghost" href="https://hrops.apptomax.com/login">Login</a>
-        <a class="btn btn-primary" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
+        <a class="btn btn-primary" href="https://hrops.apptomax.com/freetrial">Start 7-Day Free Trial</a>
       </div>
     </div>
   </div>
@@ -484,9 +486,10 @@
         <h1>From Job Opening to Onboarding — One Connected Recruitment Platform.</h1>
         <p class="lede">Create positions, share application links, manage candidates, run multi-round interviews, collect interviewer feedback, collect onboarding documents, and complete HR verification — all from one connected recruitment system.</p>
         <div class="hero-ctas">
-          <a class="btn btn-primary" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
-          <a class="btn btn-ghost" href="#flow">Explore the Recruitment Flow →</a>
+          <a class="btn btn-primary" href="https://hrops.apptomax.com/freetrial">Start 7-Day Free Trial</a>
+          <a class="btn btn-ghost" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
         </div>
+        <p class="hero-trial-note">No credit card required · <a href="#flow" style="color:var(--blue);font-weight:700;">Explore the Recruitment Flow →</a></p>
         <div class="hero-note">
           <span>Built on Microsoft Power Platform</span><span class="dot">·</span>
           <span>SharePoint-backed document management</span><span class="dot">·</span>
@@ -790,7 +793,9 @@
           <li>Complete recruitment history</li>
           <li>Consolidated PDF report</li>
         </ul>
-        <a class="btn btn-primary" href="https://payments.cashfree.com/forms/Apptomax-hrops">Subscribe Now — Pay Securely</a>
+        <a class="btn btn-primary" href="https://hrops.apptomax.com/freetrial">Start 7-Day Free Trial</a>
+        <p class="price-trial-note">No credit card required</p>
+        <a class="btn btn-ghost" href="https://payments.cashfree.com/forms/Apptomax-hrops">Subscribe Now — Pay Securely</a>
         <a class="btn btn-ghost" href="https://hrops.apptomax.com/bookdemo">Book a Demo Instead</a>
         <div class="price-secure-note">🔒 Payments processed securely by Cashfree</div>
       </div>
@@ -806,6 +811,10 @@
       <h2>Before You Book Demo.</h2>
     </div>
     <div class="faq-list">
+      <details>
+        <summary>Is there a free trial?</summary>
+        <p>Yes. You can start a 7-day free trial with full access to the recruitment and pre-onboarding workflow — no credit card required.</p>
+      </details>
       <details>
         <summary>What does Apptomax Recruit manage?</summary>
         <p>Apptomax Recruit manages the complete recruitment journey from job position creation and candidate applications through interviews, selection and onboarding document collection.</p>
@@ -861,7 +870,7 @@
       <h2>Ready to Replace Spreadsheet-Based Recruitment?</h2>
       <p>Give your HR team one connected platform for applications, interviews, candidate communication and onboarding documents.</p>
       <div class="btns">
-        <a class="btn" style="background:#fff;color:var(--blue);" href="https://payments.cashfree.com/forms/Apptomax-hrops">Subscribe Now</a>
+        <a class="btn" style="background:#fff;color:var(--blue);" href="https://hrops.apptomax.com/freetrial">Start 7-Day Free Trial</a>
         <a class="btn btn-outline-light" href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
       </div>
     </div>
@@ -885,7 +894,7 @@
       </div>
       <div class="foot-col">
         <h5>Get Started</h5>
-        <a href="https://payments.cashfree.com/forms/Apptomax-hrops">Subscribe Now</a>
+        <a href="https://hrops.apptomax.com/freetrial">Start 7-Day Free Trial</a>
         <a href="https://hrops.apptomax.com/bookdemo">Book a Demo</a>
         <a href="https://hrops.apptomax.com/login">Login</a>
       </div>
